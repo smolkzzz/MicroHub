@@ -1,0 +1,4374 @@
+local MicroLibrary = loadstring(game:HttpGetAsync(
+    "https://raw.githubusercontent.com/smolkzzz/MicroLibrary-Source/main/MicroLibrary%20Source%20Code"
+),true)()
+
+local key = loadstring(game:HttpGet("https://pastebin.com/raw/TvXHFp44"))()
+local Scheme = "Dark"
+local Keybind = Enum.KeyCode.Quote
+local Size = UDim2.new(0,400,0,300)
+
+function BreakInLobby1()
+local GUI = MicroLibrary:Create({
+	Name = "MicroHub - Break In"; -- Title
+	Toggle = Keybind; -- Hotkey To Toggle
+	KeySystem = false;
+	KeySettings = {
+		CorrectKey = key;
+		GetkeyLink = "https://link";
+	};
+	Size = Size;
+    ColourScheme = Scheme;
+})
+    local MakeRole = GUI:Tab{
+        Name = "Change Role",
+        Icon = "rbxassetid://8569322835"
+    }
+
+    local IsKid = false
+
+    MakeRole:Toggle({
+    Name = "Kid"; -- Title
+    Description = "Makes You A Kid If True Else You Will Be An Adult"; -- Description
+    Callback = function(state) 
+        IsKid = state
+    end;
+})
+
+local ShowClothing = false
+
+    MakeRole:Toggle({
+    Name = "Show Clothing"; -- Title
+    Description = "Shows Clothing If True Else Hides Clothing"; -- Description
+    Callback = function(state) 
+        ShowClothing = state
+    end;
+})
+    
+    MakeRole:Dropdown{
+        Name = "Make Role",
+        Description = "Changes Your Role"; -- Description
+        AutoClose = true,
+        Items = {
+            {"The Stealthy","TeddyBloxpin"};
+            {"The Hungry","Chips"};
+            {"The Protector","Bat"};
+            {"The Medic","MedKit"};
+            {"The Fighter","Sword"};
+            {"The Hyper","Lollipop"};
+            {"The Guest","LinkedSword"};
+            {"Police","Gun"};
+            {"Swat","SwatGun"};
+        },
+        Callback = function(item) 
+    local args = {
+        [1] = item, -- Role
+        [2] = ShowClothing, -- Show Clothing
+        [3] = IsKid -- Kid/Adult
+    }
+    game:GetService("ReplicatedStorage").RemoteEvents.MakeRole:FireServer(unpack(args))
+    game:GetService("ReplicatedStorage").RemoteEvents.OutsideRole:FireServer(unpack(args))
+    
+        return end
+    }
+end
+
+function BreakInMatch1()
+    local GUI = MicroLibrary:Create({
+        Name = "MicroHub - Break In"; -- Title
+        Toggle = Keybind; -- Hotkey To Toggle
+        KeySystem = false;
+        KeySettings = {
+            CorrectKey = key;
+            GetkeyLink = "https://link";
+        };
+        Size = Size;
+        ColourScheme = Scheme;
+    })
+
+local Main = GUI:Tab{
+    Name = "Main",
+    Icon = "rbxassetid://8569322835"
+}
+
+Main:Button{
+    Name = "Unlock Basement",
+    Description = "Unlocks The Basement"; -- Description
+    Callback = function()
+game:GetService("ReplicatedStorage").RemoteEvents.UnlockDoor:FireServer()
+    end
+}
+
+Main:Button{
+    Name = "Turn On Basement Light",
+    Description = "Turns On Basement Light (Unlock Basement First)"; -- Description
+    Callback = function()
+game:GetService("ReplicatedStorage").RemoteEvents.BasementMission:FireServer()
+    end
+}
+
+Main:Button{
+    Name = "Open Attic",
+    Description = "Opens The Attic"; -- Description
+    Callback = function()
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-19,18,-255)
+local args1 = {
+    [1] = 1
+}
+
+game:GetService("ReplicatedStorage").RemoteEvents.Ladder:FireServer(unpack(args1))
+
+local args2 = {
+    [1] = "Attic"
+}
+
+game:GetService("ReplicatedStorage").RemoteEvents.Door:FireServer(unpack(args2))
+
+    end
+}
+
+Main:Button({
+    Name = "Kill Enemies";
+    Description = "Kills Enemies Around You"; -- Description
+    Callback = function()
+        local function HitBadGuy(i,v)
+            local args = {
+                [1] = v;
+                [2] = i;
+                [3] = true
+            }
+            
+            game:GetService("ReplicatedStorage").RemoteEvents.HitBadguy:FireServer(unpack(args))
+        end
+for i,v in pairs(workspace.BadGuys:GetChildren()) do
+    repeat
+        wait()
+        HitBadGuy(i,v)
+        HitBadGuy(i,v)
+        HitBadGuy(i,v)
+        HitBadGuy(i,v)
+        HitBadGuy(i,v)
+    until not workspace.BadGuys:FindFirstChild(v)
+end
+    end
+})
+
+local Give = GUI:Tab{
+	Name = "Give Items",
+	Icon = "rbxassetid://8569322835"
+}
+
+Give:TextBox{
+	Name = "Apple Ammount",
+    Description = "Gives You An Apple"; -- Description
+	Callback = function(text) 
+        if not tonumber(text) then return end
+    local i = 0
+
+    repeat wait()
+     i = i + 1
+        local args = {
+    [1] = "Apple"
+}
+
+game:GetService("ReplicatedStorage").RemoteEvents.GiveTool:FireServer(unpack(args))
+    until i == tonumber(text)
+
+    end
+}
+
+Give:TextBox{
+	Name = "Bat Ammount",
+    Description = "Gives You A Bat"; -- Description
+	Callback = function(text) 
+        if not tonumber(text) then return end
+    local i = 0
+
+    repeat wait()
+     i = i + 1
+        local args = {
+    [1] = "Bat"
+}
+
+game:GetService("ReplicatedStorage").RemoteEvents.GiveTool:FireServer(unpack(args))
+    until i == tonumber(text)
+
+    end
+}
+
+Give:TextBox{
+	Name = "Chips Ammount",
+    Description = "Gives You Chips"; -- Description
+	Callback = function(text) 
+        if not tonumber(text) then return end
+    local i = 0
+
+    repeat wait()
+     i = i + 1
+        local args = {
+    [1] = "Chips"
+}
+
+game:GetService("ReplicatedStorage").RemoteEvents.GiveTool:FireServer(unpack(args))
+    until i == tonumber(text)
+
+    end
+}
+
+Give:TextBox{
+	Name = "Plank Ammount",
+    Description = "Gives You A Plank"; -- Description
+	Callback = function(text) 
+        if not tonumber(text) then return end
+    local i = 0
+
+    repeat wait()
+     i = i + 1
+        local args = {
+    [1] = "Plank"
+}
+
+game:GetService("ReplicatedStorage").RemoteEvents.GiveTool:FireServer(unpack(args))
+    until i == tonumber(text)
+
+    end
+}
+
+Give:TextBox{
+	Name = "Lollipop Ammount",
+    Description = "Gives You A Lollipop"; -- Description
+	Callback = function(text) 
+        if not tonumber(text) then return end
+    local i = 0
+
+    repeat wait()
+         i = i + 1
+        local args = {
+    [1] = "Lollipop"
+}
+
+game:GetService("ReplicatedStorage").RemoteEvents.GiveTool:FireServer(unpack(args))
+    until i == tonumber(text)
+
+    end
+}
+
+Give:TextBox{
+	Name = "Pizza Ammount",
+    Description = "Gives You Pizza"; -- Description
+	Callback = function(text) 
+        if not tonumber(text) then return end
+    local i = 0
+
+    repeat wait()
+         i = i + 1
+        local args = {
+    [1] = "Pizza"
+}
+
+game:GetService("ReplicatedStorage").RemoteEvents.GiveTool:FireServer(unpack(args))
+    until i == tonumber(text)
+
+    end
+}
+
+Give:TextBox{
+	Name = "Cookie Ammount",
+    Description = "Gives You A Cookie"; -- Description
+	Callback = function(text) 
+        if not tonumber(text) then return end
+    local i = 0
+
+    repeat wait()
+         i = i + 1
+        local args = {
+    [1] = "Cookie"
+}
+
+game:GetService("ReplicatedStorage").RemoteEvents.GiveTool:FireServer(unpack(args))
+    until i == tonumber(text)
+
+    end
+}
+
+Give:TextBox{
+	Name = "Expired EpicPizza Ammount",
+    Description = "Gives You An Expired EpicPizza"; -- Description
+	Callback = function(text) 
+        if not tonumber(text) then return end
+    local i = 0
+
+    repeat wait()
+         i = i + 1
+        local args = {
+    [1] = "EpicPizza"
+}
+
+game:GetService("ReplicatedStorage").RemoteEvents.GiveTool:FireServer(unpack(args))
+    until i == tonumber(text)
+
+    end
+}
+
+Give:TextBox{
+	Name = "Expired Bloxy Cola Ammount",
+    Description = "Gives You An Expired Bloxy Cola"; -- Description
+	Callback = function(text) 
+        if not tonumber(text) then return end
+    local i = 0
+
+    repeat wait()
+         i = i + 1
+        local args = {
+    [1] = "ExpiredBloxyCola"
+}
+
+game:GetService("ReplicatedStorage").RemoteEvents.GiveTool:FireServer(unpack(args))
+    until i == tonumber(text)
+
+    end
+}
+
+Give:TextBox{
+	Name = "Key Ammount",
+    Description = "Gives You A Key"; -- Description
+	Callback = function(text) 
+        if not tonumber(text) then return end
+    local i = 0
+
+    repeat wait()
+         i = i + 1
+        local args = {
+    [1] = "Key"
+}
+
+game:GetService("ReplicatedStorage").RemoteEvents.GiveTool:FireServer(unpack(args))
+    until i == tonumber(text)
+
+    end
+}
+
+Give:TextBox{
+	Name = "Teddy Ammount",
+    Description = "Gives You A Teddy"; -- Description
+	Callback = function(text) 
+        if not tonumber(text) then return end
+    local i = 0
+
+    repeat wait()
+         i = i + 1
+        local args = {
+    [1] = "TeddyBloxpin"
+}
+
+game:GetService("ReplicatedStorage").RemoteEvents.GiveTool:FireServer(unpack(args))
+    until i == tonumber(text)
+
+    end
+}
+
+Give:TextBox{
+	Name = "LinkedSword Ammount",
+    Description = "Gives You A Linked Sword"; -- Description
+	Callback = function(text) 
+        if not tonumber(text) then return end
+    local i = 0
+
+    repeat wait()
+         i = i + 1
+        local args = {
+    [1] = "LinkedSword"
+}
+
+game:GetService("ReplicatedStorage").RemoteEvents.GiveTool:FireServer(unpack(args))
+until i == tonumber(text)
+end
+}
+
+Give:TextBox{
+	Name = "Cure Ammount",
+    Description = "Gives You A Cure"; -- Description
+	Callback = function(text) 
+        if not tonumber(text) then return end
+    local i = 0
+
+    repeat wait()
+         i = i + 1
+        local args = {
+    [1] = "Cure"
+}
+
+game:GetService("ReplicatedStorage").RemoteEvents.GiveTool:FireServer(unpack(args))
+    until i == tonumber(text)
+
+    end
+}
+
+local Player = GUI:Tab{
+	Name = "Player",
+	Icon = "rbxassetid://8569322835"
+}
+
+Player:TextBox{
+	Name = "Heal Ammount",
+    Description = "Heals You"; -- Description
+	Callback = function(text) 
+        if not tonumber(text) then return end
+        game:GetService("ReplicatedStorage").RemoteEvents.Cattery:FireServer()
+    local i = 0
+
+    repeat wait()
+         i = i + 1
+
+local args = {
+    [1] = "Cat"
+}
+
+game:GetService("ReplicatedStorage").RemoteEvents.Energy:FireServer(unpack(args))
+
+    
+    until i == tonumber(text)
+end
+}
+
+Player:TextBox{
+	Name = "Stealthy Time",
+    Description = "Makes You Stealthy For A Certain Ammount Of Time (Must Have Teddy Item)"; -- Description
+	Callback = function(text) 
+        if not tonumber(text) then return end
+
+local args = {
+    [1] = tonumber(text)
+}
+
+game:GetService("ReplicatedStorage").RemoteEvents.MakeStealth:FireServer(unpack(args))
+end
+}
+
+local flyforce = 400
+
+local FlySpeed = Player:TextBox({
+	Name = "Fly Speed",
+	PlaceholderText = "Speed",
+	RemoveTextOnFocusLost = false,
+	Callback = function(Text)
+		if not tonumber(Text) then return end
+		flyforce = Text
+	end,
+})
+
+local fly = nil
+local vectorForce
+local alignOrientation
+
+local Flight = Player:Toggle({
+	Name = "Flight (E = UP, Q = Down)",
+	Callback = function(state)
+        local character = game.Players.LocalPlayer.Character
+        local root = character.HumanoidRootPart
+        local gravityVector = Vector3.new(0,workspace.Gravity,0)
+        local runService = game:GetService("RunService")
+        local yAxis = 0
+
+        local function FlyAction()
+            if fly == true then return end
+            if fly == nil then
+                fly = true
+
+                if character.Humanoid.FloorMaterial ~= Enum.Material.Air then
+                    character.Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+                    task.wait(0.1)
+                end
+
+                vectorForce = Instance.new("VectorForce",root)
+                vectorForce.Attachment0 = root.RootAttachment
+                vectorForce.Force = Vector3.new(0,0,0)
+                vectorForce.RelativeTo = Enum.ActuatorRelativeTo.World
+
+                alignOrientation = Instance.new("AlignOrientation",root)
+                alignOrientation.Attachment0 = root.RootAttachment
+                alignOrientation.MaxAngularVelocity = math.huge
+                alignOrientation.MaxTorque = math.huge
+                alignOrientation.Mode = Enum.OrientationAlignmentMode.OneAttachment
+                alignOrientation.Responsiveness = 30
+
+                character.Humanoid:ChangeState(Enum.HumanoidStateType.Physics)
+
+                fly = runService.Heartbeat:Connect(function(delta)
+                    vectorForce.Force = gravityVector * root.AssemblyMass
+
+                    local moveVector = Vector3.new(character.Humanoid.MoveDirection.X,yAxis,character.Humanoid.MoveDirection.Z)
+                    if moveVector.Magnitude > 0 then
+                        moveVector = moveVector.Unit
+                        vectorForce.Force += moveVector * flyforce * root.AssemblyMass
+
+                        if math.abs(moveVector.Y) == 1 then
+                            alignOrientation.CFrame = CFrame.lookAt(Vector3.new(0,0,0),moveVector,-root.CFrame.LookVector) * CFrame.fromOrientation(-math.pi/2,0,0)
+                        else
+                            alignOrientation.CFrame = CFrame.lookAt(Vector3.new(0,0,0),moveVector) * CFrame.fromOrientation(-math.pi/2,0,0)
+                        end
+                    end
+
+                    if root.AssemblyLinearVelocity.Magnitude > 0 then
+                        local dragVector = -root.AssemblyLinearVelocity.Unit * root.AssemblyLinearVelocity.Magnitude ^ 1.2
+                        vectorForce.Force += dragVector * 4 * root.AssemblyMass
+                    end
+                end)
+            else
+                vectorForce:Destroy()
+                alignOrientation:Destroy()
+                character.Humanoid:ChangeState(Enum.HumanoidStateType.Freefall)
+
+                fly:Disconnect()
+                fly = nil
+            end
+        end
+
+        local Up = false
+        local Down = false
+
+        local function UpAction(inputObject:InputObject,gpe)
+            if gpe then return end
+
+            if inputObject.KeyCode ~= Enum.KeyCode.E then return end
+
+            local inputState = inputObject.UserInputState
+            if inputState == Enum.UserInputState.Begin then yAxis = 1 else yAxis = 0 end
+        end
+
+        local function DownAction(inputObject:InputObject,gpe)
+            if gpe then return end
+
+            if inputObject.KeyCode ~= Enum.KeyCode.Q then return end
+
+            local inputState = inputObject.UserInputState
+            if inputState == Enum.UserInputState.Begin then yAxis = -1 else yAxis = 0 end
+        end
+
+        game:GetService("UserInputService").InputBegan:Connect(UpAction)
+        game:GetService("UserInputService").InputBegan:Connect(DownAction)
+        game:GetService("UserInputService").InputEnded:Connect(function(input,gpe)
+            if gpe then return end
+
+            if input.KeyCode == Enum.KeyCode.Q or input.KeyCode == Enum.KeyCode.E then
+                yAxis = 0
+            end
+        end)
+
+        FlyAction()
+	end,
+ })
+
+local noclip = false
+
+local nocliptoggle = Player:Toggle({
+	Name = "Noclip",
+	Callback = function(state)
+		noclip = state
+	end,
+ })
+
+ game:GetService("RunService").Stepped:Connect(function()
+	if noclip then
+		for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+		pcall(function()
+			if v:IsA("BasePart") then
+				v.CanCollide = false
+			end
+			end)
+		end
+	else
+		for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+			pcall(function()
+				if v:IsA("BasePart") then
+					if v.Name ~= "Torso" then return end
+                    v.CanCollide = true
+				end
+				end)
+			end
+	end
+end)
+
+local infjump = false
+
+local InfiniteJump = Player:Toggle({
+	Name = "Infinite Jump",
+	Callback = function(state)
+		infjump = state
+	end,
+ })
+
+game:GetService("UserInputService").JumpRequest:Connect(function()
+	if infjump == true then
+		game.Players.LocalPlayer.Character.Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+	end
+end)
+end
+
+function BreakInLobby2()
+    local GUI = MicroLibrary:Create({
+        Name = "MicroHub - Break In 2"; -- Title
+        Toggle = Keybind; -- Hotkey To Toggle
+        KeySystem = false;
+        KeySettings = {
+            CorrectKey = key;
+            GetkeyLink = "https://link";
+        };
+        Size = Size;
+        ColourScheme = Scheme;
+    })
+        local MakeRole = GUI:Tab{
+            Name = "Change Role",
+            Icon = "rbxassetid://8569322835"
+        }
+    
+        local IsKid = false
+    
+        MakeRole:Toggle({
+        Name = "Kid"; -- Title
+        Description = "Makes You A Kid If True Else You Will Be An Adult"; -- Description
+        Callback = function(state) 
+            IsKid = state
+        end;
+    })
+    
+    local ShowClothing = false
+    
+        MakeRole:Toggle({
+        Name = "Show Clothing"; -- Title
+        Description = "Shows Clothing If True Else Hides Clothing"; -- Description
+        Callback = function(state) 
+            ShowClothing = state
+        end;
+    })
+        
+        MakeRole:Dropdown{
+            Name = "Make Role",
+            Description = "Changes Your Role"; -- Description
+            AutoClose = true,
+            Items = {
+                {"The Hyper","Lollipop"};
+                {"The Sporty","Bottle"};
+                {"The Nerd","Book"};
+                {"The Protecter","Bat"};
+                {"The Medic","MedKit"};
+                {"The Hacker","Phone"};
+            },
+            Callback = function(item) 
+                local args = {
+                    [1] = item, -- Role
+                    [2] = IsKid, -- Kid/Adult
+                    [3] = ShowClothing -- Kid/Adult
+                }
+                if item ~= "Book" or item ~= "Phone" then
+                    game:GetService("ReplicatedStorage").RemoteEvents.MakeRole:FireServer(unpack(args))
+                else
+                    game:GetService("ReplicatedStorage").RemoteEvents.OutsideRole:FireServer(unpack(args))
+                end
+            end
+        }
+end
+
+function BreakInMatch2()
+    local Events = game:GetService("ReplicatedStorage"):WaitForChild("Events")
+    local Player = game:GetService("Players").LocalPlayer
+    local Functions = {}
+    do
+        Functions.UnequipTools = function()
+            for i,v in pairs(Player.Character:GetChildren()) do
+                if v:IsA("Tool") then
+                    v.Parent = Player.Backpack
+                end
+            end
+        end;
+        Functions.EquipTools = function()
+            for i,v in pairs(Player.Backpack:GetChildren()) do
+                if v:IsA("Tool") then
+                    v.Parent = Player.Character
+                end
+            end
+        end;
+        Functions.Train = function(Ability)
+            Events:WaitForChild("RainbowWhatStat"):FireServer(Ability)
+        end;
+        Functions.TakeDamage = function(Amount)
+            Events:WaitForChild("Energy"):FireServer(-Amount,false,false)
+        end;
+        Functions.GiveItem = function(Item)
+            if Item == "Armor" then
+                Events:WaitForChild("Vending"):FireServer(3,"Armor2","Armor",tostring(Player),1)
+            else
+                Events:WaitForChild("GiveTool"):FireServer(tostring(Item:gsub(" ","")))
+            end
+        end;
+        Functions.HealPlayers = function()
+            Functions.UnequipTools()
+            task.wait(0.2)
+            Functions.GiveItem("Golden Apple")
+            task.wait(0.5)
+            Player.Backpack:WaitForChild("GoldenApple").Parent = Player.Character
+            task.wait(0.5)
+            Events:WaitForChild("HealTheNoobs"):FireServer()
+        end;
+        Functions.StopEnemies = function()
+            for i,v in pairs(workspace.BadGuys:GetChildren()) do
+                v.PrimaryPart.Anchored = true
+                v:FindFIrstChild("Humanoid").Health = 0
+            end
+            for i,v in pairs(workspace.BadGuysBoss:GetChildren()) do
+                v.PrimaryPart.Anchored = true
+                v:FindFIrstChild("Humanoid").Health = 0
+            end
+            for i,v in pairs(workspace.BadGuysFront:GetChildren()) do
+                v.PrimaryPart.Anchored = true
+                v:FindFIrstChild("Humanoid").Health = 0
+            end
+        end;
+        Functions.KillEnemies = function()
+            pcall(function()
+                for i,v in pairs(workspace.BadGuys:GetChildren()) do
+                    Events:WaitForChild("HitBadGuy"):FireServer(v,64.8,4)
+                end
+                for i,v in pairs(workspace.BadGuysBoss:GetChildren()) do
+                    Events:WaitForChild("HitBadGuy"):FireServer(v,64.8,4)
+                end
+                for i,v in pairs(workspace.BadGuysFront:GetChildren()) do
+                    Events:WaitForChild("HitBadGuy"):FireServer(v,64.8,4)
+                end
+                if workspace:FindFirstChild("BadGuysPizza") then
+                    Events:WaitForChild("HitBadGuy"):FireServer(workspace:FindFirstChild("BadGuysPizza"),64.8,4)
+                end
+                if workspace:FindFirstChild("BadGuysBrute") then
+                    Events:WaitForChild("HitBadGuy"):FireServer(workspace:FindFirstChild("BadGuysBrute"),64.8,4)
+                end
+            end)
+        end;
+    end
+    local GUI = MicroLibrary:Create({
+        Name = "MicroHub - Break In 2"; -- Title
+        Toggle = Keybind; -- Hotkey To Toggle
+        KeySystem = false;
+        KeySettings = {
+            CorrectKey = key;
+            GetkeyLink = "https://link";
+        };
+        Size = Size;
+        ColourScheme = Scheme;
+    })
+
+local Main = GUI:Tab{
+    Name = "Main",
+    Icon = "rbxassetid://8569322835"
+}
+
+Main:Button({
+    Name = "Kill Enemies";
+    Description = "Kills Enemies Around You"; -- Description
+    Callback = function()
+        Functions.KillEnemies()
+    end
+})
+
+local Give = GUI:Tab{
+	Name = "Give Items",
+	Icon = "rbxassetid://8569322835"
+}
+
+local SelectedItems = {}
+
+local Info = Give:Info({
+    Message = "Items:" .. table.unpack(SelectedItems,"\n"); -- Message
+})
+
+Give:Dropdown({
+	Name = [[Add Item]]; -- Title
+   	Description = "Add Any Item into your wishlist"; -- Description
+	Items = {
+        "Armor";
+        "Med Kit";
+        "Key";
+        "Gold Key";
+        "Louise";
+        "Lollipop";
+        "Chips";
+        "Golden Apple";
+        "Pizza";
+        "Gold Pizza";
+        "Rainbow Pizza";
+        "Rainbow Pizza Box";
+        "Book";
+        {"Hacker Phone","Phone"};
+        "Cookie";
+        "Apple";
+        "Bloxy Cola";
+        "Expired Bloxy Cola";
+        {"Energy Bottle","Bottle"};
+        "Ladder";
+        "Battery";
+    }; -- Items
+	Callback = function(Selected) 
+		-- Code Here --
+        local item = Selected
+        if Selected == "Phone" then
+            item = "Hacker Phone"
+        end
+        if Selected == "Bottle" then
+            item = "Energy Bottle"
+        end
+        if SelectedItems[item] then
+            SelectedItems[item] = nil
+        else
+            SelectedItems[item] = Selected
+        end
+        Info:SetText("Items:" .. table.unpack(SelectedItems,"\n")) -- Sets The Text
+	end;
+})
+
+Give:Button({
+    Name = "Give Item";
+    Description = "Gives the selected items"; -- Description
+    Callback = function()
+        for i,v in pairs(SelectedItems) do
+            Functions.GiveItem(v)
+            task.wait(0.5)
+        end
+    end
+})
+
+local Player = GUI:Tab{
+	Name = "Player",
+	Icon = "rbxassetid://8569322835"
+}
+
+Player:Button{
+	Name = "Train Strength",
+    Description = "Trains your strength"; -- Description
+	Callback = function() 
+        Functions.Train("Strength")
+    end
+}
+
+Player:Button{
+	Name = "Train Speed",
+    Description = "Trains your speed"; -- Description
+	Callback = function() 
+        Functions.Train("Speed")
+    end
+}
+
+Player:Button{
+	Name = "Heal",
+    Description = "Heals You"; -- Description
+	Callback = function() 
+        Functions.TakeDamage(-100)
+    end
+}
+
+Player:Button{
+	Name = "Heal Players",
+    Description = "Heals All Players"; -- Description
+	Callback = function() 
+        Functions.HealPlayers()
+    end
+}
+
+local flyforce = 400
+
+local FlySpeed = Player:TextBox({
+	Name = "Fly Speed",
+	PlaceholderText = "Speed",
+	RemoveTextOnFocusLost = false,
+	Callback = function(Text)
+		if not tonumber(Text) then return end
+		flyforce = Text
+	end,
+})
+
+local fly = nil
+local vectorForce
+local alignOrientation
+
+local Flight = Player:Toggle({
+	Name = "Flight (E = UP, Q = Down)",
+	Callback = function(state)
+        local character = game.Players.LocalPlayer.Character
+        local root = character.HumanoidRootPart
+        local gravityVector = Vector3.new(0,workspace.Gravity,0)
+        local runService = game:GetService("RunService")
+        local yAxis = 0
+
+        local function FlyAction()
+            if fly == true then return end
+            if fly == nil then
+                fly = true
+
+                if character.Humanoid.FloorMaterial ~= Enum.Material.Air then
+                    character.Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+                    task.wait(0.1)
+                end
+
+                vectorForce = Instance.new("VectorForce",root)
+                vectorForce.Attachment0 = root.RootAttachment
+                vectorForce.Force = Vector3.new(0,0,0)
+                vectorForce.RelativeTo = Enum.ActuatorRelativeTo.World
+
+                alignOrientation = Instance.new("AlignOrientation",root)
+                alignOrientation.Attachment0 = root.RootAttachment
+                alignOrientation.MaxAngularVelocity = math.huge
+                alignOrientation.MaxTorque = math.huge
+                alignOrientation.Mode = Enum.OrientationAlignmentMode.OneAttachment
+                alignOrientation.Responsiveness = 30
+
+                character.Humanoid:ChangeState(Enum.HumanoidStateType.Physics)
+
+                fly = runService.Heartbeat:Connect(function(delta)
+                    vectorForce.Force = gravityVector * root.AssemblyMass
+
+                    local moveVector = Vector3.new(character.Humanoid.MoveDirection.X,yAxis,character.Humanoid.MoveDirection.Z)
+                    if moveVector.Magnitude > 0 then
+                        moveVector = moveVector.Unit
+                        vectorForce.Force += moveVector * flyforce * root.AssemblyMass
+
+                        if math.abs(moveVector.Y) == 1 then
+                            alignOrientation.CFrame = CFrame.lookAt(Vector3.new(0,0,0),moveVector,-root.CFrame.LookVector) * CFrame.fromOrientation(-math.pi/2,0,0)
+                        else
+                            alignOrientation.CFrame = CFrame.lookAt(Vector3.new(0,0,0),moveVector) * CFrame.fromOrientation(-math.pi/2,0,0)
+                        end
+                    end
+
+                    if root.AssemblyLinearVelocity.Magnitude > 0 then
+                        local dragVector = -root.AssemblyLinearVelocity.Unit * root.AssemblyLinearVelocity.Magnitude ^ 1.2
+                        vectorForce.Force += dragVector * 4 * root.AssemblyMass
+                    end
+                end)
+            else
+                vectorForce:Destroy()
+                alignOrientation:Destroy()
+                character.Humanoid:ChangeState(Enum.HumanoidStateType.Freefall)
+
+                fly:Disconnect()
+                fly = nil
+            end
+        end
+
+        local Up = false
+        local Down = false
+
+        local function UpAction(inputObject:InputObject,gpe)
+            if gpe then return end
+
+            if inputObject.KeyCode ~= Enum.KeyCode.E then return end
+
+            local inputState = inputObject.UserInputState
+            if inputState == Enum.UserInputState.Begin then yAxis = 1 else yAxis = 0 end
+        end
+
+        local function DownAction(inputObject:InputObject,gpe)
+            if gpe then return end
+
+            if inputObject.KeyCode ~= Enum.KeyCode.Q then return end
+
+            local inputState = inputObject.UserInputState
+            if inputState == Enum.UserInputState.Begin then yAxis = -1 else yAxis = 0 end
+        end
+
+        game:GetService("UserInputService").InputBegan:Connect(UpAction)
+        game:GetService("UserInputService").InputBegan:Connect(DownAction)
+        game:GetService("UserInputService").InputEnded:Connect(function(input,gpe)
+            if gpe then return end
+
+            if input.KeyCode == Enum.KeyCode.Q or input.KeyCode == Enum.KeyCode.E then
+                yAxis = 0
+            end
+        end)
+
+        FlyAction()
+	end,
+ })
+
+local noclip = false
+
+local nocliptoggle = Player:Toggle({
+	Name = "Noclip",
+	Callback = function(state)
+		noclip = state
+	end,
+ })
+
+ game:GetService("RunService").Stepped:Connect(function()
+	if noclip then
+		for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+		pcall(function()
+			if v:IsA("BasePart") then
+				v.CanCollide = false
+			end
+			end)
+		end
+	else
+		for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+			pcall(function()
+				if v:IsA("BasePart") then
+					if v.Name ~= "Torso" then return end
+                    v.CanCollide = true
+				end
+				end)
+			end
+	end
+end)
+
+local infjump = false
+
+local InfiniteJump = Player:Toggle({
+	Name = "Infinite Jump",
+	Callback = function(state)
+		infjump = state
+	end,
+ })
+
+game:GetService("UserInputService").JumpRequest:Connect(function()
+	if infjump == true then
+		game.Players.LocalPlayer.Character.Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+	end
+end)
+end
+
+function Babft()
+    local GUI = MicroLibrary:Create({
+        Name = "MicroHub - Build A Boat For Treasure"; -- Title
+        Toggle = Keybind; -- Hotkey To Toggle
+        KeySystem = false;
+        KeySettings = {
+            CorrectKey = key;
+            GetkeyLink = "https://link";
+        };
+        Size = Size;
+        ColourScheme = Scheme;
+    })
+
+    local Autofarm = GUI:Tab{
+        Name = "Autofarm",
+        Icon = "rbxassetid://8569322835"
+    }
+
+    local autofarmspeed = 1
+
+    Autofarm:TextBox{
+        Name = "Autofarm Speed",
+        Description = "Changes The Autofarm Speed"; -- Description
+        Callback = function(text)
+            if not tonumber(text) then return end
+            autofarmspeed = 500 / tonumber(text)
+        end
+    }
+
+    local farmtoggle = nil
+
+    Autofarm:Toggle{
+        Name = "Autofarm Toggled",
+        Description = "Starts/Stops Autofarm",
+        Callback = function(state) 
+            farmtoggle = state
+            local function autofarmstart ()
+                local tweenService, tweenInfo = game:GetService("TweenService"), TweenInfo.new(1, Enum.EasingStyle.Linear)
+                local tweenInfoE = TweenInfo.new(autofarmspeed, Enum.EasingStyle.Linear)
+                local AutofarmInfoS = TweenInfo.new(24, Enum.EasingStyle.Linear)
+                local Tween = tweenService:Create(game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart"), tweenInfo, {CFrame = CFrame.new(-53.3258858, 61.0841904, -168.990448, -0.999997914, 6.06681024e-05, -0.00204384234, 8.84582896e-09, 0.999559879, 0.0296659637, 0.00204474269, 0.0296659023, -0.999557793)})
+                Tween:Play()
+                Tween.Completed:Wait()
+                local TweenS = tweenService:Create(game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart"), AutofarmInfoS, {CFrame = CFrame.new(-60.1640434, 45.5146027, 8749.81738, -0.998283863, 0.0156156365, -0.0564399585, 6.99763136e-10, 0.963791013, 0.266658753, 0.0585603714, 0.266201138, -0.962137043)})
+                TweenS:Play()
+                TweenS.Completed:Wait()
+                local TweenE = tweenService:Create(game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart"), tweenInfoE, {CFrame = CFrame.new(-54.7364044, -353.343506, 9499.69141, -0.997614145, -0.057083983, 0.0388260931, 3.42698292e-09, 0.56239897, 0.826866031, -0.0690365583, 0.824893236, -0.56105715)})
+                TweenE:Play()
+                
+                wait(2)
+                
+                game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true
+                
+                spawn(function()
+                
+                while game.Players.LocalPlayer.Character do
+                    if not farmtoggle then return end
+                wait()
+                firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart,game:GetService("Workspace").BoatStages.NormalStages.TheEnd.GoldenChest.Trigger,0)
+                wait(0.1)
+                firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart,game:GetService("Workspace").BoatStages.NormalStages.TheEnd.GoldenChest.Trigger,1)
+                end
+                
+                end)
+                end
+            if farmtoggle then
+                workspace.Gravity = 0.5
+                autofarmstart()
+            end
+        end
+    }
+
+    game.Players.LocalPlayer.CharacterAdded:Connect(function()
+        local function autofarmstart ()
+            local tweenService, tweenInfo = game:GetService("TweenService"), TweenInfo.new(1, Enum.EasingStyle.Linear)
+            local tweenInfoE = TweenInfo.new(autofarmspeed, Enum.EasingStyle.Linear)
+            local AutofarmInfoS = TweenInfo.new(24, Enum.EasingStyle.Linear)
+            local Tween = tweenService:Create(game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart"), tweenInfo, {CFrame = CFrame.new(-53.3258858, 61.0841904, -168.990448, -0.999997914, 6.06681024e-05, -0.00204384234, 8.84582896e-09, 0.999559879, 0.0296659637, 0.00204474269, 0.0296659023, -0.999557793)})
+            Tween:Play()
+            Tween.Completed:Wait()
+            local TweenS = tweenService:Create(game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart"), AutofarmInfoS, {CFrame = CFrame.new(-60.1640434, 45.5146027, 8749.81738, -0.998283863, 0.0156156365, -0.0564399585, 6.99763136e-10, 0.963791013, 0.266658753, 0.0585603714, 0.266201138, -0.962137043)})
+            TweenS:Play()
+            TweenS.Completed:Wait()
+            local TweenE = tweenService:Create(game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart"), tweenInfoE, {CFrame = CFrame.new(-54.7364044, -353.343506, 9499.69141, -0.997614145, -0.057083983, 0.0388260931, 3.42698292e-09, 0.56239897, 0.826866031, -0.0690365583, 0.824893236, -0.56105715)})
+            TweenE:Play()
+            
+            wait(2)
+            
+            game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true
+            
+            spawn(function()
+            
+            while game.Players.LocalPlayer.Character do
+                if not farmtoggle then return end
+            wait()
+            firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart,game:GetService("Workspace").BoatStages.NormalStages.TheEnd.GoldenChest.Trigger,0)
+            wait(0.1)
+            firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart,game:GetService("Workspace").BoatStages.NormalStages.TheEnd.GoldenChest.Trigger,1)
+            end
+            
+            end)
+            end
+        game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart")
+        if not farmtoggle then workspace.Gravity = 76.5 return end
+        autofarmstart()
+    end)
+
+local Player = GUI:Tab{
+    Name = "Player",
+    Icon = "rbxassetid://8569322835"
+}
+
+Player:Button{
+	Name = "Anti-AFK",
+	Description = "No longer get kicked when idling",
+	Callback = function() 
+        loadstring(game:HttpGet("https://pastebin.com/raw/sDXcYFhR"))()
+    end
+}
+
+local Walkspeed = Player:TextBox({
+	Name = "Walkspeed",
+	PlaceholderText = "Walkspeed",
+	RemoveTextOnFocusLost = false,
+	Callback = function(Text)
+		game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = Text
+	end,
+})
+
+local Jumppower = Player:TextBox({
+	Name = "JumpPower",
+	PlaceholderText = "Jumppower",
+	RemoveTextOnFocusLost = false,
+	Callback = function(Text)
+		game.Players.LocalPlayer.Character.Humanoid.JumpPower = Text
+	end,
+})
+
+local flyforce = 400
+
+local FlySpeed = Player:TextBox({
+	Name = "Fly Speed",
+	PlaceholderText = "Speed",
+	RemoveTextOnFocusLost = false,
+	Callback = function(Text)
+		if not tonumber(Text) then return end
+		flyforce = Text
+	end,
+})
+
+local fly = nil
+local vectorForce
+local alignOrientation
+
+local Flight = Player:Toggle({
+	Name = "Flight (E = UP, Q = Down)",
+	Callback = function(state)
+        local character = game.Players.LocalPlayer.Character
+        local root = character.HumanoidRootPart
+        local gravityVector = Vector3.new(0,workspace.Gravity,0)
+        local runService = game:GetService("RunService")
+        local yAxis = 0
+
+        local function FlyAction()
+            if fly == true then return end
+            if fly == nil then
+                fly = true
+
+                if character.Humanoid.FloorMaterial ~= Enum.Material.Air then
+                    character.Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+                    task.wait(0.01)
+                end
+
+                vectorForce = Instance.new("VectorForce",root)
+                vectorForce.Attachment0 = root.RootAttachment
+                vectorForce.Force = Vector3.new(0,0,0)
+                vectorForce.RelativeTo = Enum.ActuatorRelativeTo.World
+
+                alignOrientation = Instance.new("AlignOrientation",root)
+                alignOrientation.Attachment0 = root.RootAttachment
+                alignOrientation.MaxAngularVelocity = math.huge
+                alignOrientation.MaxTorque = math.huge
+                alignOrientation.Mode = Enum.OrientationAlignmentMode.OneAttachment
+                alignOrientation.Responsiveness = 30
+
+                character.Humanoid:ChangeState(Enum.HumanoidStateType.Physics)
+
+                fly = runService.Heartbeat:Connect(function(delta)
+                    vectorForce.Force = gravityVector * root.AssemblyMass
+
+                    local moveVector = Vector3.new(character.Humanoid.MoveDirection.X,yAxis,character.Humanoid.MoveDirection.Z)
+                    if moveVector.Magnitude > 0 then
+                        moveVector = moveVector.Unit
+                        vectorForce.Force += moveVector * flyforce * root.AssemblyMass
+
+                        if math.abs(moveVector.Y) == 1 then
+                            alignOrientation.CFrame = CFrame.lookAt(Vector3.new(0,0,0),moveVector,-root.CFrame.LookVector) * CFrame.fromOrientation(-math.pi/2,0,0)
+                        else
+                            alignOrientation.CFrame = CFrame.lookAt(Vector3.new(0,0,0),moveVector) * CFrame.fromOrientation(-math.pi/2,0,0)
+                        end
+                    end
+
+                    if root.AssemblyLinearVelocity.Magnitude > 0 then
+                        local dragVector = -root.AssemblyLinearVelocity.Unit * root.AssemblyLinearVelocity.Magnitude ^ 1.2
+                        vectorForce.Force += dragVector * 4 * root.AssemblyMass
+                    end
+                end)
+            else
+                vectorForce:Destroy()
+                alignOrientation:Destroy()
+                character.Humanoid:ChangeState(Enum.HumanoidStateType.Freefall)
+
+                fly:Disconnect()
+                fly = nil
+            end
+        end
+
+        local Up = false
+        local Down = false
+
+        local function UpAction(inputObject:InputObject,gpe)
+            if gpe then return end
+
+            if inputObject.KeyCode ~= Enum.KeyCode.E then return end
+
+            local inputState = inputObject.UserInputState
+            if inputState == Enum.UserInputState.Begin then yAxis = 1 else yAxis = 0 end
+        end
+
+        local function DownAction(inputObject:InputObject,gpe)
+            if gpe then return end
+
+            if inputObject.KeyCode ~= Enum.KeyCode.Q then return end
+
+            local inputState = inputObject.UserInputState
+            if inputState == Enum.UserInputState.Begin then yAxis = -1 else yAxis = 0 end
+        end
+
+        game:GetService("UserInputService").InputBegan:Connect(UpAction)
+        game:GetService("UserInputService").InputBegan:Connect(DownAction)
+        game:GetService("UserInputService").InputEnded:Connect(function(input,gpe)
+            if gpe then return end
+
+            if input.KeyCode == Enum.KeyCode.Q or input.KeyCode == Enum.KeyCode.E then
+                yAxis = 0
+            end
+        end)
+
+        FlyAction()
+	end,
+ })
+
+local noclip = false
+
+local nocliptoggle = Player:Toggle({
+	Name = "Noclip",
+	Callback = function(state)
+		noclip = state
+	end,
+ })
+
+ game:GetService("RunService").Stepped:Connect(function()
+	if noclip then
+		for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+		pcall(function()
+			if v:IsA("BasePart") then
+				v.CanCollide = false
+			end
+			end)
+		end
+	else
+		for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+			pcall(function()
+				if v:IsA("BasePart") then
+					if v.Name ~= "Torso" then return end
+                    v.CanCollide = true
+				end
+				end)
+			end
+	end
+end)
+
+local infjump = false
+
+local InfiniteJump = Player:Toggle({
+	Name = "Infinite Jump",
+	Callback = function(state)
+		infjump = state
+	end,
+ })
+
+ Player:Keybind({
+	Name = [[Click TP]];
+	Description = "Teleports you to your cursor when activated";
+	StartBind = Enum.KeyCode.V;
+	Callback = function() 
+        local pos = game.Players.LocalPlayer:GetMouse().hit
+        pos = CFrame.new(pos.X,pos.Y + 2.5,pos.Z)
+
+        game.Players.LocalPlayer.Character:SetPrimaryPartCFrame(pos)
+    end
+})
+
+game:GetService("UserInputService").JumpRequest:Connect(function()
+	if infjump == true then
+		game.Players.LocalPlayer.Character.Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+	end
+end)
+
+local Quests = GUI:Tab{
+    Name = "Quests (Soon)",
+    Icon = "rbxassetid://8569322835"
+}
+
+Quests:Dropdown({
+	Name = [[Change Quest]]; -- Title
+   	Description = "Changes Quest"; -- Description
+	Items = {
+        {"Cloud",0};
+        {"Target",1};
+        {"Soccer",2};
+        {"Ramp",3};
+        {"Find Me",4};
+        {"Dragon",5};
+        {"The Box",6};
+        {"Thin Ice",7};
+        {"e",8};
+        {"t",9};
+    }; -- Items
+	Callback = function(Selected) 
+        workspace.QuestMakerEvent:FireServer(Selected)
+	end;
+})
+
+end
+
+function Piggy()
+    local GUI = MicroLibrary:Create({
+        Name = "MicroHub - Piggy"; -- Title
+        Toggle = Keybind; -- Hotkey To Toggle
+        KeySystem = false;
+        KeySettings = {
+            CorrectKey = key;
+            GetkeyLink = "https://link";
+        };
+        Size = Size;
+        ColourScheme = Scheme;
+    })
+
+    local Give = GUI:Tab({
+        Name = "Give";
+        Icon = "rbxassetid://12222879857";
+    })
+    
+    local GiveItem = Give:Dropdown({
+        Name = "Give",
+        Description = "Gives You Your Selected Item",
+        Items = {},
+        Callback = function(item) 
+            local player = game.Players.LocalPlayer.Character
+            local pos = Instance.new("CFrameValue")
+            pos.Value = player:GetPrimaryPartCFrame()
+            pos.Parent = player
+
+            player:SetPrimaryPartCFrame(item.CFrame) 
+            fireclickdetector(item.ClickDetector)
+            player:SetPrimaryPartCFrame(pos.Value)
+            pos:Destroy()
+        end
+    })
+    
+    Give:Button({
+        Name = "Update",
+        Description = "Updates the items",
+        Callback = function() 
+            GiveItem:Clear()
+            for i,v in pairs(workspace:GetDescendants()) do
+                if v:FindFirstChild("ClickDetector") and v:FindFirstChild("ItemPickupScript") then
+                    GiveItem:Add(v.Name,v)
+                end
+            end
+        end
+    })
+    local last = ""
+    local current = ""
+    game:GetService("RunService").RenderStepped:Connect(function()
+        local tab = {}
+        for i,v in pairs(workspace:GetDescendants()) do
+            if v:FindFirstChild("ClickDetector") and v:FindFirstChild("ItemPickupScript") then
+                table.insert(tab,v)
+            end
+        end
+        local namelist = {}
+        for i,v in pairs(tab) do
+            table.insert(namelist,v.Name)
+        end
+        current = table.concat(namelist)
+        if last ~= current then
+        	GiveItem:Clear()
+            for _,v in pairs(tab) do
+                GiveItem:Add(v.Name,v)
+            end
+        end
+    end)
+
+    local Player = GUI:Tab({
+        Name = "Player";
+        Icon = "rbxassetid://12222879857";
+    })
+    
+    local flyforce = 400
+
+    local FlySpeed = Player:TextBox({
+        Name = "Fly Speed",
+        PlaceholderText = "Speed",
+        RemoveTextOnFocusLost = false,
+        Callback = function(Text)
+            if not tonumber(Text) then return end
+            flyforce = Text
+        end,
+    })
+    
+    local fly = nil
+    local vectorForce
+    local alignOrientation
+    
+    local Flight = Player:Toggle({
+        Name = "Flight (E = UP, Q = Down)",
+        Callback = function(state)
+            local character = game.Players.LocalPlayer.Character
+            local root = character.HumanoidRootPart
+            local gravityVector = Vector3.new(0,workspace.Gravity,0)
+            local runService = game:GetService("RunService")
+            local yAxis = 0
+    
+            local function FlyAction()
+                if fly == true then return end
+                if fly == nil then
+                    fly = true
+    
+                    if character.Humanoid.FloorMaterial ~= Enum.Material.Air then
+                        character.Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+                        task.wait(0.1)
+                    end
+    
+                    vectorForce = Instance.new("VectorForce",root)
+                    vectorForce.Attachment0 = root.RootAttachment
+                    vectorForce.Force = Vector3.new(0,0,0)
+                    vectorForce.RelativeTo = Enum.ActuatorRelativeTo.World
+    
+                    alignOrientation = Instance.new("AlignOrientation",root)
+                    alignOrientation.Attachment0 = root.RootAttachment
+                    alignOrientation.MaxAngularVelocity = math.huge
+                    alignOrientation.MaxTorque = math.huge
+                    alignOrientation.Mode = Enum.OrientationAlignmentMode.OneAttachment
+                    alignOrientation.Responsiveness = 30
+    
+                    character.Humanoid:ChangeState(Enum.HumanoidStateType.Physics)
+    
+                    fly = runService.Heartbeat:Connect(function(delta)
+                        vectorForce.Force = gravityVector * root.AssemblyMass
+    
+                        local moveVector = Vector3.new(character.Humanoid.MoveDirection.X,yAxis,character.Humanoid.MoveDirection.Z)
+                        if moveVector.Magnitude > 0 then
+                            moveVector = moveVector.Unit
+                            vectorForce.Force += moveVector * flyforce * root.AssemblyMass
+    
+                            if math.abs(moveVector.Y) == 1 then
+                                alignOrientation.CFrame = CFrame.lookAt(Vector3.new(0,0,0),moveVector,-root.CFrame.LookVector) * CFrame.fromOrientation(-math.pi/2,0,0)
+                            else
+                                alignOrientation.CFrame = CFrame.lookAt(Vector3.new(0,0,0),moveVector) * CFrame.fromOrientation(-math.pi/2,0,0)
+                            end
+                        end
+    
+                        if root.AssemblyLinearVelocity.Magnitude > 0 then
+                            local dragVector = -root.AssemblyLinearVelocity.Unit * root.AssemblyLinearVelocity.Magnitude ^ 1.2
+                            vectorForce.Force += dragVector * 4 * root.AssemblyMass
+                        end
+                    end)
+                else
+                    vectorForce:Destroy()
+                    alignOrientation:Destroy()
+                    character.Humanoid:ChangeState(Enum.HumanoidStateType.Freefall)
+    
+                    fly:Disconnect()
+                    fly = nil
+                end
+            end
+    
+            local Up = false
+            local Down = false
+    
+            local function UpAction(inputObject:InputObject,gpe)
+                if gpe then return end
+    
+                if inputObject.KeyCode ~= Enum.KeyCode.E then return end
+    
+                local inputState = inputObject.UserInputState
+                if inputState == Enum.UserInputState.Begin then yAxis = 1 else yAxis = 0 end
+            end
+    
+            local function DownAction(inputObject:InputObject,gpe)
+                if gpe then return end
+    
+                if inputObject.KeyCode ~= Enum.KeyCode.Q then return end
+    
+                local inputState = inputObject.UserInputState
+                if inputState == Enum.UserInputState.Begin then yAxis = -1 else yAxis = 0 end
+            end
+    
+            game:GetService("UserInputService").InputBegan:Connect(UpAction)
+            game:GetService("UserInputService").InputBegan:Connect(DownAction)
+            game:GetService("UserInputService").InputEnded:Connect(function(input,gpe)
+                if gpe then return end
+    
+                if input.KeyCode == Enum.KeyCode.Q or input.KeyCode == Enum.KeyCode.E then
+                    yAxis = 0
+                end
+            end)
+    
+            FlyAction()
+        end,
+     })
+
+local noclip = false
+
+local nocliptoggle = Player:Toggle({
+	Name = "Noclip",
+	Callback = function(state)
+		noclip = state
+	end,
+ })
+
+ game:GetService("RunService").Stepped:Connect(function()
+	if noclip then
+		for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+		pcall(function()
+			if v:IsA("BasePart") then
+				v.CanCollide = false
+			end
+			end)
+		end
+	else
+		for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+			pcall(function()
+				if v:IsA("BasePart") then
+					if v.Name ~= "Torso" then return end
+                    v.CanCollide = true
+				end
+				end)
+			end
+	end
+end)
+
+local infjump = false
+
+local InfiniteJump = Player:Toggle({
+	Name = "Infinite Jump",
+	Callback = function(state)
+		infjump = state
+	end,
+ })
+
+game:GetService("UserInputService").JumpRequest:Connect(function()
+	if infjump == true then
+		game.Players.LocalPlayer.Character.Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+	end
+end)
+    
+    local ESP = GUI:Tab({
+        Name = "ESP";
+        Icon = "rbxassetid://12222879857";
+    })
+    
+    local player_esp = false
+    local player_color = Color3.new(0,1,0)
+    ESP:Toggle({
+        Name = "Players",
+        StartingState = false,
+        Description = "Highlight Players",
+        Callback = function(state)
+            player_esp = state
+        end
+    })
+    
+    ESP:ColorPicker({
+        Name = "Players ESP Color";
+	    Description = "Changes The ESP Color for Players";
+	    Callback = function(color) 
+		    player_color = color
+	    end;
+    })
+
+    local items_esp = false
+    local items_color = Color3.new(0,0,1)
+    ESP:Toggle({
+        Name = "Items",
+        StartingState = false,
+        Description = "Highlight Items",
+        Callback = function(state)
+            items_esp = state
+        end
+    })
+
+    ESP:ColorPicker({
+        Name = "Items ESP Color";
+	    Description = "Changes The ESP Color for Items";
+	    Callback = function(color) 
+		    items_color = color
+	    end;
+    })
+
+    local bot_esp = false
+    local bot_color = Color3.new(1,0,0)
+    ESP:Toggle({
+        Name = "Bot",
+        StartingState = false,
+        Description = "Highlight Bots",
+        Callback = function(state)
+            bot_esp = state
+        end
+    })
+
+    ESP:ColorPicker({
+        Name = "Bots ESP Color";
+	    Description = "Changes The ESP Color for Bots";
+	    Callback = function(color) 
+		    bot_color = color
+	    end;
+    })
+
+        game:GetService("RunService").RenderStepped:Connect(function()
+            if player_esp then
+                local color = player_color
+                local Highlight = Instance.new("Highlight")
+                Highlight.FillColor = color
+                Highlight.OutlineColor = Color3.new(1,0,0)
+                Highlight.Name = "ESP"
+                Highlight.Parent = nil
+
+                local gui = Instance.new("BillboardGui")
+                gui.Active = true
+                gui.AlwaysOnTop = true
+                gui.ClipsDescendants = true
+                gui.LightInfluence = 1
+                gui.Size = UDim2.new(0,100,0,50)
+                gui.StudsOffset = Vector3.new(0,1,0)
+                gui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+                gui.Name = "NameESP"
+                gui.Parent = nil
+
+                local label = Instance.new("TextLabel")
+                label.Font = Enum.Font.GothamBold
+                label.Text = "Name_Holder"
+                label.TextColor3 = color
+                label.TextScaled = true
+                label.TextSize = 14
+                label.TextStrokeTransparency = 0.5
+                label.TextWrapped = true
+                label.BackgroundTransparency = 1
+                label.Size = UDim2.fromScale(1,1)
+                label.Parent = gui
+
+                for _,player in pairs(game:GetService("Players"):GetChildren()) do
+                    repeat wait() until player.Character
+                    local head = player.Character:FindFirstChild("Head")
+                    if not head:FindFirstChild("NameESP") then
+                        local NameESP = gui:Clone()
+                        NameESP.TextLabel.Text = player.Name
+                        NameESP.Parent = head
+                    end
+                    if not player.Character:FindFirstChild("ESP") then
+                        Highlight:Clone().Parent = player.Character
+                    end
+                end
+            else
+                for _,player in pairs(game:GetService("Players"):GetChildren()) do
+                    repeat wait() until player.Character
+                    local head = player.Character:FindFirstChild("Head")
+                    if head:FindFirstChild("NameESP") then
+                        head:FindFirstChild("NameESP"):Destroy()
+                    end
+                    if player.Character:FindFirstChild("ESP") then
+                        player.Character:FindFirstChild("ESP"):Destroy()
+                    end
+                end
+            end
+            if items_esp then
+                local color = items_color
+                local Highlight = Instance.new("Highlight")
+                Highlight.FillColor = color
+                Highlight.OutlineColor = Color3.new(1,0,0)
+                Highlight.Name = "ESP"
+                Highlight.Parent = nil
+
+                local gui = Instance.new("BillboardGui")
+                gui.Active = true
+                gui.AlwaysOnTop = true
+                gui.ClipsDescendants = true
+                gui.LightInfluence = 1
+                gui.Size = UDim2.new(0,100,50)
+                gui.StudsOffset = Vector3.new(0,1,0)
+                gui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+                gui.Name = "NameESP"
+                gui.Parent = nil
+
+                local label = Instance.new("TextLabel")
+                label.Font = Enum.Font.GothamBold
+                label.Text = "Name_Holder"
+                label.TextColor3 = color
+                label.TextScaled = true
+                label.TextSize = 14
+                label.TextStrokeTransparency = 0.5
+                label.TextWrapped = true
+                label.BackgroundTransparency = 1
+                label.Size = UDim2.fromScale(1,1)
+                label.Parent = gui
+
+                for _,item in pairs(workspace:GetDescendants()) do
+                    if (item:FindFirstChild("ClickDetector") and item:FindFirstChild("ItemPickupScript")) then
+                        if not item:FindFirstChild("NameESP") then
+                            local clone = gui:Clone()
+                            clone.TextLabel.Text = item.Name
+                            clone.Parent = item
+                        end
+
+                        if not item:FindFirstChild("ESP") then
+                            Highlight:Clone().Parent = item
+                        end
+                    end
+                end
+            else
+                for _,item in pairs(workspace:GetDescendants()) do
+                    if (item:FindFirstChild("ClickDetector") and item:FindFirstChild("ItemPickupScript")) then
+                        if item:FindFirstChild("NameESP") then
+                            item:FindFirstChild("NameESP"):Destroy()
+                        end
+
+                        if item:FindFirstChild("ESP") then
+                            item:FindFirstChild("ESP"):Destroy()
+                        end
+                    end
+                end
+            end
+        end)
+end
+
+function TowerOfHell()
+    local GUI = MicroLibrary:Create({
+        Name = "MicroHub - Tower Of Hell"; -- Title
+        Toggle = Keybind; -- Hotkey To Toggle
+        KeySystem = false;
+        KeySettings = {
+            CorrectKey = key;
+            GetkeyLink = "https://link";
+        };
+        Size = Size;
+        ColourScheme = Scheme;
+    })
+
+    local Autofarm = GUI:Tab({
+        Name = "Autofarm";
+        Icon = "rbxassetid://12222879857";
+    })
+
+    local farmspeed = 10
+    local isfarm = false
+
+    Autofarm:Toggle({
+        Name = "Autofarm"; -- Title
+        Description = "Enables/Disables Autofarm"; -- Description
+        Callback = function(state) 
+            isfarm = state
+        end;
+    })
+
+    Autofarm:Button({
+        Name = "Go to end"; -- Title
+        Description = "Goes to the end"; -- Description
+        Callback = function()
+            -- Code Here --
+            game.Players.LocalPlayer.Character:SetPrimaryPartCFrame(workspace.tower.sections.finish.FinishGlow.CFrame)
+        end;
+    })
+
+    game:GetService("RunService").RenderStepped:Connect(function()
+        if not isfarm then return end
+
+        wait(farmspeed)
+        game.Players.LocalPlayer.Character:SetPrimaryPartCFrame(workspace.tower.sections.finish.FinishGlow.CFrame)
+    end)
+
+    local Player = GUI:Tab({
+        Name = "Player";
+        Icon = "rbxassetid://12222879857";
+    })
+
+    local godmode = false
+
+    Player:Toggle({
+        Name = "God Mode"; -- Title
+        Description = "Makes You Invincible"; -- Description
+        Callback = function(state) 
+            godmode = state
+        end;
+    })
+
+    task.spawn(function()
+        while true do
+            if game:GetService("Players").LocalPlayer.Character.Humanoid.Health == 0 then return end
+            if godmode then
+                for i,v in pairs(game:GetService("Players").LocalPlayer.Character:GetChildren()) do
+                    if v.Name == "hitbox" then
+                        v.Name = "Invincible"
+                    end
+                end
+            else
+                for i,v in pairs(game:GetService("Players").LocalPlayer.Character:GetChildren()) do
+                    if v.Name == "Invincible" then
+                        v.Name = "hitbox"
+                    end
+                end
+            end
+        wait()
+        end
+    end)
+
+    local Give = GUI:Tab({
+        Name = "Give";
+        Icon = "rbxassetid://12222879857";
+    })
+
+    Give:Button({
+        Name = "Give All"; -- Title
+        Description = "Gives all gear"; -- Description
+        Callback = function()
+            -- Code Here --
+            for i,tool in pairs(game:GetService("ReplicatedStorage").Gear:GetChildren()) do
+                tool:Clone().Parent = game:GetService("Players").LocalPlayer.Backpack
+            end
+        end;
+    })
+
+    local GiveDropdown = Give:Dropdown({
+        Name = [[Give Tool]]; -- Title
+        Description = "Gives You Your Selected Tool"; -- Description
+        Items = {}; -- Items
+        Callback = function(Selected) 
+            -- Code Here --
+            Selected:Clone().Parent = game:GetService("Players").LocalPlayer.Backpack
+        end;
+    })
+
+    for i,tool in pairs(game:GetService("ReplicatedStorage").Gear:GetChildren()) do
+        GiveDropdown:Add(tool.Name,tool)
+    end
+end
+
+function DestructionSimulator()
+local GUI = MicroLibrary:Create({
+        Name = "MicroHub - Destruction Simulator"; -- Title
+        Toggle = Keybind; -- Hotkey To Toggle
+        KeySystem = false;
+        KeySettings = {
+            CorrectKey = "Hello World!";
+            GetkeyLink = "https://link";
+        };
+        Size = Size;
+        ColourScheme = Scheme;
+    })
+
+    local Money = GUI:Tab({
+	Name = "Money";
+	Icon = "rbxassetid://12222879857";
+})
+
+local Fun = GUI:Tab({
+    Name = "Fun";
+    Icon = "rbxassetid://12222879857";
+})
+
+Fun:TextBox({
+	Name = "Explode me"; -- Title
+    Description = "Explodes Your Self With A Certain Power"; -- Description	
+	PlaceHolderText = "Power"; -- Place Holder Text
+	RemoveTextOnFocusLost = false; -- Removes The Text When Clicked
+	Callback = function(txt) 
+		-- Code Here --
+        local ohNumber1 = 1681644219.066073
+        local ohInstance2 = tonumber(txt)
+        local ohVector33 = game.Players.LocalPlayer.Character.PrimaryPart.Position
+
+        game:GetService("ReplicatedStorage").Remotes.explodeBomb:FireServer(ohNumber1, ohInstance2, ohVector33)
+	end
+})
+
+Fun:Button({
+    Name = "OP Bomb"; -- Title
+    Description = "Makes your bomb OP"; -- Description
+    Callback = function()
+        -- Code Here --
+        local module = nil
+        if game.Players.LocalPlayer.Backpack:FindFirstChild("Bomb") then
+            module = game.Players.LocalPlayer.Backpack.Bomb.Stats
+        elseif game.Players.LocalPlayer.Character:FindFirstChild("Bomb") then
+            module = game.Players.LocalPlayer.Character.Bomb.Stats
+        end
+        if module == nil then return end
+        module = require(module)
+        module.Cooldown = 0
+        module.BlastRadius = 100
+        module.BlastForce = 1000
+    end;
+})
+
+Fun:Button({
+    Name = "OP Launcher"; -- Title
+    Description = "Makes your launcher OP"; -- Description
+    Callback = function()
+        -- Code Here --
+        local module = nil
+        if game.Players.LocalPlayer.Backpack:FindFirstChild("Launcher") then
+            module = game.Players.LocalPlayer.Backpack.Launcher.Stats
+        elseif game.Players.LocalPlayer.Character:FindFirstChild("Launcher") then
+            module = game.Players.LocalPlayer.Character.Launcher.Stats
+        end
+        if module == nil then return end
+        module = require(module)
+        module.Cooldown = 0
+        module.RocketSpeed = 1000
+        module.Bursts = 5
+        module.BurstWait = 0
+
+    end;
+})
+end
+
+function RainbowFriends_Part1()
+    local GUI = MicroLibrary:Create({
+        Name = "MicroHub - Rainbow Friends"; -- Title
+        Toggle = Keybind; -- Hotkey To Toggle
+        KeySystem = false;
+        KeySettings = {
+            CorrectKey = "Hello World!";
+            GetkeyLink = "https://link";
+        };
+        Size = Size;
+        ColourScheme = Scheme;
+    })
+
+    local Give = GUI:Tab({
+	Name = "Give";
+	Icon = "rbxassetid://12222879857";
+})
+
+local GiveItem = Give:Dropdown({
+    Name = "Give",
+    Description = "Gives You Your Selected Item",
+    Items = {},
+    Callback = function(item) 
+        firetouchinterest(game.Players.LocalPlayer.Character.PrimaryPart, item, 0)
+        print("Gave " .. tostring(item.Name))
+    return end
+})
+
+task.spawn(function()
+    while wait() do
+        GiveItem:Clear()
+    for i,v in pairs(workspace:GetDescendants()) do
+        if v.Name ~= "TouchTrigger" then return end
+        GiveItem:Add(v.Parent.Name,v)
+    end
+    end
+end)
+
+local GiveAll = Give:Button({
+	Name = "Give All",
+	Callback = function()
+		for i,touch in pairs(workspace:GetDescendants()) do
+            if touch.Name ~= "TouchTrigger" then return end
+            firetouchinterest(game.Players.LocalPlayer.Character.PrimaryPart, touch, 0)
+        end
+
+        print("Given All Items Possible")
+	end,
+})
+end
+
+function Build_To_Survive()
+    local PlayerEvents = game:GetService("ReplicatedStorage").PlayerEvents["e" .. game.Players.LocalPlayer.UserId]
+    for i,v in pairs(workspace.Bases:GetChildren()) do
+        if v.Name == "Owner" then
+            local clone = v:Clone()
+            clone.Name = "Real"
+            clone.Value = game.Players.LocalPlayer.UserId
+            clone.Parent = v
+        end
+    end
+    local GUI = MicroLibrary:Create({
+        Name = "MicroHub - Build To Survive"; -- Title
+        Toggle = Keybind; -- Hotkey To Toggle
+        KeySystem = false;
+        KeySettings = {
+            CorrectKey = "Hello World!";
+            GetkeyLink = "https://link";
+        };
+        Size = Size;
+        ColourScheme = Scheme;
+    })
+
+    local Fun = GUI:Tab({
+        Name = "Fun";
+        Icon = "rbxassetid://12222879857";
+    })
+
+    local SelectPlayer = Fun:Label({
+        Message = "Selected: nil"; -- Message
+    })
+
+    local Selection
+
+    local Dropdown = Fun:Dropdown({
+        Name = [[Select Player]]; -- Title
+        Description = nil; -- Description
+        Items = {}; -- Items
+        Callback = function(Selected) 
+            Selection = Selected
+            SelectPlayer:SetText("Selected: " .. Selection.Name)
+        end;
+    })
+            for i,v in pairs(game.Players:GetPlayers()) do
+                Dropdown:Add(v.Name,v)
+            end
+            game.Players.PlayerAdded:Connect(function(player)
+                Dropdown:Add(player.Name,player)
+            end)
+            game.Players.PlayerRemoving:Connect(function(player)
+                Dropdown:Remove(player.Name)
+                if Selection == player then
+                    Selection = nil
+                    SelectPlayer:SetText("Selected: nil")
+                end
+            end)
+
+    Fun:Button({
+        Name = "Clear Bases";
+        Callback = function()
+            for i,v in pairs(workspace.Bases:GetDescendants()) do
+                if v.Name == "Blocks" then
+                    for i,v2 in pairs(v:GetChildren()) do
+                        PlayerEvents.DestroyItem:FireServer(v2)
+                    end
+                end
+            end
+        end
+    })
+
+    Fun:Button({
+        Name = "Claim All Ownership";
+        Callback = function()
+            for i,v in pairs(workspace.Bases:GetDescendants()) do
+                if v.Name == "Owner" then
+                    if v.Value == game.Players.LocalPlayer.UserId then
+                        v.Parent.Base.Size = Vector3.new(2048,0.5,2048)
+                        v.Parent.Base.CanCollide = false
+                        v.Parent.Base.Transparency = 0.5
+                    end
+
+                    v.Value = game.Players.LocalPlayer.UserId
+                end
+            end
+        end
+    })
+
+    Fun:Button({
+        Name = "Kick (Select Player)";
+        Callback = function()
+            PlayerEvents.DestroyItem:FireServer(Selection)
+        end
+    })
+
+    Fun:Button({
+        Name = "Teleport To (Select Player)";
+        Callback = function()
+            game.Players.LocalPlayer.Character:SetPrimaryPartCFrame(Selection.Character:GetPrimaryPartCFrame())
+        end
+    })
+
+    Fun:Button({
+        Name = "Ragdoll (Select Player)";
+        Callback = function()
+            PlayerEvents.DestroyItem:FireServer(Selection.Character.Humanoid)
+        end
+    })
+
+    Fun:Button({
+        Name = "Punish (Select Player)";
+        Callback = function()
+            PlayerEvents.DestroyItem:FireServer(Selection.Character)
+        end
+    })
+
+    Fun:Button({
+        Name = "Kill (Select Player)";
+        Callback = function()
+            PlayerEvents.DestroyItem:FireServer(Selection.Character.Head)
+        end
+    })
+
+    Fun:Button({
+        Name = "Remove Mobs (Client)";
+        Callback = function()
+            for i,v in pairs(workspace.Mobs:GetChildren()) do
+                v:Destroy()
+            end
+        end
+    })
+
+    Fun:Button({
+        Name = "Remove Mobs (Server)";
+        Callback = function()
+            for i,v in pairs(workspace.Mobs:GetChildren()) do
+                PlayerEvents.DestroyItem:FireServer(v)
+            end
+        end
+    })
+
+    Fun:Button({
+        Name = "Permanently Remove Mobs (Client)";
+        Callback = function()
+            workspace.Mobs:Destroy()
+        end
+    })
+
+    Fun:Button({
+        Name = "Permanently Remove Mobs (Server)";
+        Callback = function()
+            PlayerEvents.DestroyItem:FireServer(workspace.Mobs)
+        end
+    })
+
+    Fun:Button({
+        Name = "Shutdown";
+        Callback = function()
+            for i,v in pairs(game.Players:GetPlayers()) do
+                if v.Name == game.Players.LocalPlayer.Name then continue end
+                PlayerEvents.DestroyItem:FireServer(v)
+            end
+            PlayerEvents.DestroyItem:FireServer(game.Players.LocalPlayer)
+        end
+    })
+
+    Fun:Button({
+        Name = "Building Tools (Tools Are Server Sided)";
+        Callback = function()
+                local LP, Camera, UIS =
+                    game:GetService("Players")["LocalPlayer"],
+                    workspace["CurrentCamera"],
+                    game:GetService("UserInputService")
+                local Char, Mouse = LP["Character"], LP:GetMouse()
+                local Humanoid, Root = Char:FindFirstChildWhichIsA("Humanoid"), Char["HumanoidRootPart"]
+        
+                local Tools = {
+                    ["Move"] = Instance.new("Tool"),
+                    ["Clone"] = Instance.new("Tool"),
+                    ["Destroy"] = Instance.new("Tool")
+                }
+        
+                Tools["Move"].TextureId = "rbxassetid://1048129653"
+                Tools["Clone"].TextureId = "rbxasset://Textures/Clone.png"
+                Tools["Destroy"].TextureId = "http://www.roblox.com/asset/?id=14808588"
+                for K, V in next, Tools do
+                    V["RequiresHandle"] = false
+                end
+        
+                Tools["Move"].Parent = LP.Backpack
+                Tools["Clone"].Parent = LP.Backpack
+                Tools["Destroy"].Parent = LP.Backpack
+        
+                local Delete = function(Obj)
+                    PlayerEvents.DestroyItem:FireServer(Obj)
+                end
+        
+                local Place = function(CFrame, Obj)
+                    PlayerEvents.PlaceItem:FireServer(CFrame, Obj)
+                end
+        
+                local IgnoreList = {}
+        
+                for K, V in next, workspace:GetDescendants() do
+                    if V:IsA("Part") or V:IsA("BasePart") then
+                        if rawequal(V["Transparency"], 1) then
+                            table.insert(IgnoreList, V)
+                        end
+                    end
+                end
+        
+                for K, V in next, Char:GetDescendants() do
+                    if V:IsA("Part") or V:IsA("BasePart") then
+                        table.insert(IgnoreList, V)
+                    end
+                end
+        
+                workspace.DescendantAdded:Connect(
+                    function(Obj)
+                        if Obj:IsA("Part") or Obj:IsA("BasePart") then
+                            if rawequal(Obj["Transparency"], 1) then
+                                table.insert(IgnoreList, Obj)
+                            end
+                        end
+                    end
+                )
+        
+                local PointInfo = function(X, Y)
+                    local RayA = Camera:ScreenPointToRay(X, Y)
+                    local RayB = Ray.new(RayA.Origin, RayA.Direction * 1.0e3)
+                    local Target, Position = workspace:FindPartOnRayWithIgnoreList(RayB, IgnoreList)
+                    return {Target, Position}
+                end
+        
+                Tools["Destroy"].Deactivated:Connect(
+                    function()
+                        local Obj = PointInfo(Mouse.X, Mouse.Y)[1]
+                        Delete(Obj)
+                    end
+                )
+        
+                Tools["Clone"].Equipped:Connect(
+                    function(Mouse)
+                        Mouse.Icon = "rbxasset://textures/CloneCursor.png"
+                    end
+                )
+        
+                Tools["Clone"].Unequipped:Connect(
+                    function()
+                        game.Players.LocalPlayer:GetMouse().Icon = ""
+                    end
+                )
+        
+                Tools["Destroy"].Equipped:Connect(
+                    function(Mouse)
+                        Mouse.Icon = "rbxasset://textures/HammerCursor.png"
+                    end
+                )
+        
+                Tools["Destroy"].Unequipped:Connect(
+                    function()
+                        game.Players.LocalPlayer:GetMouse().Icon = ""
+                    end
+                )
+        
+                local Moving
+                Tools["Move"].Activated:Connect(
+                    function()
+                        Moving = PointInfo(Mouse.X, Mouse.Y)[1]
+                        table.insert(IgnoreList, Moving)
+                        local ObjInList = #IgnoreList
+                        repeat
+                            Mouse.Move:Wait()
+                            Moving.CFrame = CFrame.new(PointInfo(Mouse.X, Mouse.Y)[2] + Vector3.new(0, Moving.Size.Y / 2, 0))
+                        until #UIS:GetMouseButtonsPressed() < 1
+                        IgnoreList[ObjInList] = nil
+                    end
+                )
+        
+                Tools["Move"].Deactivated:Connect(
+                    function()
+                        Delete(Moving)
+                        Place(Moving.CFrame, Moving)
+                    end
+                )
+        
+                Tools["Clone"].Activated:Connect(
+                    function()
+                        Moving = PointInfo(Mouse.X, Mouse.Y)[1]
+                        wait(.2)
+                        table.insert(IgnoreList, Moving)
+                        local ObjInList = #IgnoreList
+                        if #UIS:GetMouseButtonsPressed() > 0 then
+                            repeat
+                                game:GetService("RunService").RenderStepped:Wait()
+                                Moving.CFrame =
+                                    CFrame.new(PointInfo(Mouse.X, Mouse.Y)[2] + Vector3.new(0, Moving.Size.Y / 2, 0))
+                            until #UIS:GetMouseButtonsPressed() < 1
+                            Place(Moving.CFrame, Moving)
+                        else
+                            Place(Moving.CFrame + Vector3.new(0, Moving.Size.Y, 0), Moving)
+                        end
+                        IgnoreList[ObjInList] = nil
+                    end
+                )
+            end
+    })
+
+     Fun:Button({
+        Name = "Clear Workspace (Client)";
+        Callback = function()
+            for i,v in pairs(workspace:GetChildren()) do
+                v:Destroy()
+            end
+        end
+    })
+
+    Fun:Button({
+        Name = "Clear Workspace (Server)";
+        Callback = function()
+            for i,v in pairs(workspace:GetChildren()) do
+                PlayerEvents.DestroyItem:FireServer(v)
+            end
+        end
+    })
+end
+
+function Granny1()
+    local GUI = MicroLibrary:Create({
+        Name = "MicroHub - Granny"; -- Title
+        Toggle = Keybind; -- Hotkey To Toggle
+        KeySystem = false;
+        KeySettings = {
+            CorrectKey = key;
+            GetkeyLink = "https://link";
+        };
+        Size = Size;
+        ColourScheme = Scheme;
+    })
+
+    local Give = GUI:Tab({
+        Name = "Give Item";
+        Icon = "rbxassetid://12222879857";
+    })
+    Give:Dropdown({
+        Name = [[Give Item]]; -- Title
+        Description = "Select an Item to give"; -- Description
+        Items = {
+            {"Pepper spray",function()
+                local Items = workspace:FindFirstChild("General Items")
+                Items:FindFirstChild("Pepper spray"):FindFirstChild("InteractRemote"):FireServer()    
+            end};
+            {"Crossbow",function()
+                local Items = workspace:FindFirstChild("General Items")
+                Items:FindFirstChild("Crossbow"):FindFirstChild("InteractRemote"):FireServer()
+            end};
+            {"Physics Gun",function()
+                loadstring(game:HttpGet("https://pastebin.com/raw/CmQVd6RB"))()
+            end};
+        }; -- Items
+        Callback = function(Selected) 
+            -- Code Here --
+            Selected()
+        end;
+    })
+
+    local Home = GUI:Tab({
+        Name = "Home";
+        Icon = "rbxassetid://12222879857";
+    })
+
+local Translater = Home:Button({
+	Name = "Translater",
+	Callback = function()
+		loadstring(game:HttpGet("https://pastebin.com/raw/54hj5R7L"))()
+	end,
+})
+
+local Tp = Home:Button({
+    Name = "Tp Tool";
+    Callback = function()
+        local Tool = Instance.new("Tool")
+        Tool.Name = "Teleport"
+        Tool.Activated:Connect(function()
+            local pos = game.Players.LocalPlayer:GetMouse().hit
+            pos = CFrame.new(pos.X,pos.Y + 2.5,pos.Z)
+            game.Players.LocalPlayer.Character:SetPrimaryPartCFrame(pos)
+        end)
+        Tool.Parent = game.Players.LocalPlayer.Backpack
+    end
+})
+
+local pos = nil
+
+local Positions = Home:Dropdown({
+	Name = [[Positions]]; -- Title
+   	Description = nil; -- Description
+	Items = {}; -- Items
+	Callback = function(Selected) 
+		game.Players.LocalPlayer.Character:SetPrimaryPartCFrame(Selected)
+    end;
+})
+
+local Clear = Home:Button({
+    Name = "Clear Positions";
+    Callback = function()
+        Positions:Clear()
+    end
+})
+
+local CreatePosition = Home:TextBox({
+	Name = "Positon Name"; -- Title
+    Description = "Remove/Add the position with the name"; -- Description	
+	PlaceHolderText = "Remove or add a position with a name"; -- Place Holder Text
+	RemoveTextOnFocusLost = false; -- Removes The Text When Clicked
+	Callback = function(txt)
+        if txt == "" then
+            return
+        end
+
+        if Positions:Find(txt) then
+            Positions:Remove(txt)
+        else
+            Positions:Add(txt,game.Players.LocalPlayer.Character:GetPrimaryPartCFrame())
+        end
+	end
+})
+
+local BypassChat = Home:TextBox({
+	Name = "Bypass Chat Filter",
+	PlaceholderText = "Something",
+	RemoveTextOnFocusLost = false,
+	Callback = function(Text)
+		local chat = Text
+   local tabl = {}
+   for i = 1, #chat do
+       local chara = chat:sub(i,i)
+       if string.lower(chara) == "w" then
+           chara = "ɯ"
+       elseif string.lower(chara) == "n" then
+           chara = "ヘ"
+       elseif string.lower(chara) == "i" then
+           chara = "エ"
+       elseif string.lower(chara) == "c" then
+           chara = "く"
+       elseif string.lower(chara) == "t" then
+           chara = "て"
+       elseif string.lower(chara) == "o" then
+           chara = "○"
+       elseif string.lower(chara) == "u" then
+           chara = "ぴ"
+       elseif string.lower(chara) == "s" then
+           chara = "う" --TODO: Find better S character
+       elseif string.lower(chara) == " " then
+           chara = "  "
+       elseif string.lower(chara) == "h" then
+           chara = "カ"
+       end
+       table.insert(tabl, chara)
+   end
+   chat = ""
+   for i,v in pairs(tabl) do
+       chat = chat..v
+   end
+   game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(chat, "All")
+	end,
+})
+
+local MorseChat = Home:TextBox({
+	Name = "Talk In Morse Code",
+	PlaceholderText = "Something",
+	RemoveTextOnFocusLost = false,
+	Callback = function(Text)
+		local chat = Text
+   local tabl = {}
+   for i = 1, #chat do
+       local chara = chat:sub(i,i)
+       if string.lower(chara) == " " then
+           chara = "/"
+	   elseif string.lower(chara) == "a" then
+		chara = " .- "
+	elseif string.lower(chara) == "b" then
+		chara = " -... "
+	elseif string.lower(chara) == "c" then
+		chara = " -.-. "
+	elseif string.lower(chara) == "d" then
+		chara = " -.. "
+	elseif string.lower(chara) == "e" then
+		chara = " . "
+	elseif string.lower(chara) == "f" then
+		chara = " ..-. "
+	elseif string.lower(chara) == "g" then
+		chara = " --. "
+	elseif string.lower(chara) == "h" then
+		chara = " .... "
+	elseif string.lower(chara) == "i" then
+		chara = " .. "
+	elseif string.lower(chara) == "j" then
+		chara = " .--- "
+	elseif string.lower(chara) == "k" then
+		chara = " -.- "
+	elseif string.lower(chara) == "l" then
+		chara = " .-.. "
+	elseif string.lower(chara) == "m" then
+		chara = " -- "
+	elseif string.lower(chara) == "n" then
+		chara = " -. "
+	elseif string.lower(chara) == "o" then
+		chara = " --- "
+	elseif string.lower(chara) == "p" then
+		chara = " .--. "
+	elseif string.lower(chara) == "q" then
+		chara = " --.- "
+	elseif string.lower(chara) == "r" then
+		chara = " .-. "
+	elseif string.lower(chara) == "s" then
+		chara = " ... "
+	elseif string.lower(chara) == "t" then
+		chara = " - "
+	elseif string.lower(chara) == "u" then
+		chara = " ..- "
+	elseif string.lower(chara) == "v" then
+		chara = " ...- "
+	elseif string.lower(chara) == "w" then
+		chara = " .-- "
+	elseif string.lower(chara) == "x" then
+		chara = " -..- "
+	elseif string.lower(chara) == "y" then
+		chara = " -.-- "
+	elseif string.lower(chara) == "z" then
+		chara = " --.. "
+	elseif string.lower(chara) == "0" then
+		chara = " ----- "
+	elseif string.lower(chara) == "1" then
+		chara = " .---- "
+	elseif string.lower(chara) == "2" then
+		chara = " ..--- "
+	elseif string.lower(chara) == "3" then
+		chara = " ...-- "
+	elseif string.lower(chara) == "4" then
+		chara = " ....- "
+	elseif string.lower(chara) == "5" then
+		chara = " ..... "
+	elseif string.lower(chara) == "6" then
+		chara = " -.... "
+	elseif string.lower(chara) == "7" then
+		chara = " --... "
+	elseif string.lower(chara) == "8" then
+		chara = " ---.. "
+	elseif string.lower(chara) == "9" then
+		chara = " ----. "
+	elseif string.lower(chara) == "." then
+		chara = " .-.-.- "
+	elseif string.lower(chara) == "," then
+		chara = " --..-- "
+	elseif string.lower(chara) == "?" then
+		chara = " ..--.. "
+	elseif string.lower(chara) == "!" then
+		chara = " -.-.-- "
+	elseif string.lower(chara) == "'" then
+		chara = " .----. "
+	elseif string.lower(chara) == '"' then
+		chara = " .-..-. "
+	elseif string.lower(chara) == "(" then
+		chara = " -.--. "
+	elseif string.lower(chara) == ")" then
+		chara = " -.--.- "
+	elseif string.lower(chara) == "&" then
+		chara = " .-... "
+	elseif string.lower(chara) == ":" then
+		chara = " ---... "
+	elseif string.lower(chara) == ";" then
+		chara = " -.-.-. "
+	elseif string.lower(chara) == "/" then
+		chara = " -..-. "
+	elseif string.lower(chara) == "_" then
+		chara = " ..--.- "
+	elseif string.lower(chara) == "=" then
+		chara = " -...- "
+	elseif string.lower(chara) == "+" then
+		chara = " .-.-. "
+	elseif string.lower(chara) == "- " then
+		chara = " -....- "
+	elseif string.lower(chara) == "$" then
+		chara = " ...-..- "
+	elseif string.lower(chara) == "@" then
+		chara = " .--.-. "
+	   end
+       table.insert(tabl, chara)
+   end
+   chat = ""
+   for i,v in pairs(tabl) do
+       chat = chat..v
+   end
+   game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(chat, "All")
+
+	end,
+})
+
+local Player = GUI:Tab({
+    Name = "Player";
+    Icon = "rbxassetid://12222879857";
+})
+
+local Walkspeed = Player:TextBox({
+	Name = "Walkspeed",
+	PlaceholderText = "Walkspeed",
+	RemoveTextOnFocusLost = false,
+	Callback = function(Text)
+		game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = Text
+	end,
+})
+
+local Jumppower = Player:TextBox({
+	Name = "JumpPower",
+	PlaceholderText = "Jumppower",
+	RemoveTextOnFocusLost = false,
+	Callback = function(Text)
+		game.Players.LocalPlayer.Character.Humanoid.JumpPower = Text
+	end,
+})
+
+local flyforce = 400
+
+local FlySpeed = Player:TextBox({
+	Name = "Fly Speed",
+	PlaceholderText = "Speed",
+	RemoveTextOnFocusLost = false,
+	Callback = function(Text)
+		if not tonumber(Text) then return end
+		flyforce = Text
+	end,
+})
+
+local fly = nil
+local vectorForce
+local alignOrientation
+
+local Flight = Player:Toggle({
+	Name = "Flight (E = UP, Q = Down)",
+	Callback = function(state)
+        local character = game.Players.LocalPlayer.Character
+        local root = character.HumanoidRootPart
+        local gravityVector = Vector3.new(0,workspace.Gravity,0)
+        local runService = game:GetService("RunService")
+        local yAxis = 0
+
+        local function FlyAction()
+            if fly == true then return end
+            if fly == nil then
+                fly = true
+
+                if character.Humanoid.FloorMaterial ~= Enum.Material.Air then
+                    character.Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+                    task.wait(0.01)
+                end
+
+                vectorForce = Instance.new("VectorForce",root)
+                vectorForce.Attachment0 = root.RootAttachment
+                vectorForce.Force = Vector3.new(0,0,0)
+                vectorForce.RelativeTo = Enum.ActuatorRelativeTo.World
+
+                alignOrientation = Instance.new("AlignOrientation",root)
+                alignOrientation.Attachment0 = root.RootAttachment
+                alignOrientation.MaxAngularVelocity = math.huge
+                alignOrientation.MaxTorque = math.huge
+                alignOrientation.Mode = Enum.OrientationAlignmentMode.OneAttachment
+                alignOrientation.Responsiveness = 30
+
+                character.Humanoid:ChangeState(Enum.HumanoidStateType.Physics)
+
+                fly = runService.Heartbeat:Connect(function(delta)
+                    vectorForce.Force = gravityVector * root.AssemblyMass
+
+                    local moveVector = Vector3.new(character.Humanoid.MoveDirection.X,yAxis,character.Humanoid.MoveDirection.Z)
+                    if moveVector.Magnitude > 0 then
+                        moveVector = moveVector.Unit
+                        vectorForce.Force += moveVector * flyforce * root.AssemblyMass
+
+                        if math.abs(moveVector.Y) == 1 then
+                            alignOrientation.CFrame = CFrame.lookAt(Vector3.new(0,0,0),moveVector,-root.CFrame.LookVector) * CFrame.fromOrientation(-math.pi/2,0,0)
+                        else
+                            alignOrientation.CFrame = CFrame.lookAt(Vector3.new(0,0,0),moveVector) * CFrame.fromOrientation(-math.pi/2,0,0)
+                        end
+                    end
+
+                    if root.AssemblyLinearVelocity.Magnitude > 0 then
+                        local dragVector = -root.AssemblyLinearVelocity.Unit * root.AssemblyLinearVelocity.Magnitude ^ 1.2
+                        vectorForce.Force += dragVector * 4 * root.AssemblyMass
+                    end
+                end)
+            else
+                vectorForce:Destroy()
+                alignOrientation:Destroy()
+                character.Humanoid:ChangeState(Enum.HumanoidStateType.Freefall)
+
+                fly:Disconnect()
+                fly = nil
+            end
+        end
+
+        local Up = false
+        local Down = false
+
+        local function UpAction(inputObject:InputObject,gpe)
+            if gpe then return end
+
+            if inputObject.KeyCode ~= Enum.KeyCode.E then return end
+
+            local inputState = inputObject.UserInputState
+            if inputState == Enum.UserInputState.Begin then yAxis = 1 else yAxis = 0 end
+        end
+
+        local function DownAction(inputObject:InputObject,gpe)
+            if gpe then return end
+
+            if inputObject.KeyCode ~= Enum.KeyCode.Q then return end
+
+            local inputState = inputObject.UserInputState
+            if inputState == Enum.UserInputState.Begin then yAxis = -1 else yAxis = 0 end
+        end
+
+        game:GetService("UserInputService").InputBegan:Connect(UpAction)
+        game:GetService("UserInputService").InputBegan:Connect(DownAction)
+        game:GetService("UserInputService").InputEnded:Connect(function(input,gpe)
+            if gpe then return end
+
+            if input.KeyCode == Enum.KeyCode.Q or input.KeyCode == Enum.KeyCode.E then
+                yAxis = 0
+            end
+        end)
+
+        FlyAction()
+	end,
+ })
+
+local noclip = false
+
+local nocliptoggle = Player:Toggle({
+	Name = "Noclip",
+	Callback = function(state)
+		noclip = state
+	end,
+ })
+
+ game:GetService("RunService").Stepped:Connect(function()
+	if noclip then
+		for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+		pcall(function()
+			if v:IsA("BasePart") then
+				v.CanCollide = false
+			end
+			end)
+		end
+	else
+		for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+			pcall(function()
+				if v:IsA("BasePart") then
+					if v.Name ~= "Torso" then return end
+                    v.CanCollide = true
+				end
+				end)
+			end
+	end
+end)
+
+local infjump = false
+
+local InfiniteJump = Player:Toggle({
+	Name = "Infinite Jump",
+	Callback = function(state)
+		infjump = state
+	end,
+ })
+
+ Player:Keybind({
+	Name = [[Click TP]];
+	Description = "Teleports you to your cursor when activated";
+	StartBind = Enum.KeyCode.V;
+	Callback = function() 
+        local pos = game.Players.LocalPlayer:GetMouse().hit
+        pos = CFrame.new(pos.X,pos.Y + 2.5,pos.Z)
+
+        game.Players.LocalPlayer.Character:SetPrimaryPartCFrame(pos)
+    end
+})
+
+game:GetService("UserInputService").JumpRequest:Connect(function()
+	if infjump == true then
+		game.Players.LocalPlayer.Character.Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+	end
+end)
+local Teleports = GUI:Tab({
+	Name = "Teleports";
+	Icon = "rbxassetid://12222879857";
+})
+
+local Player = Teleports:Dropdown({
+    Name = [[Teleport To Player]]; -- Title
+    Description = nil; -- Description
+    Items = {}; -- Items
+    Callback = function(Selected) 
+        game.Players.LocalPlayer.Character:SetPrimaryPartCFrame(Selected)
+    end;
+})
+Player:Clear()
+        for i,v in pairs(game.Players:GetPlayers()) do
+            if v.Name == v.DisplayName then
+                Player:Add(v.Name,v.Character:GetPrimaryPartCFrame())
+            else
+                Player:Add(v.DisplayName .. " (" .. v.Name .. ")",v.Character:GetPrimaryPartCFrame())
+            end
+        end
+        game.Players.PlayerAdded:Connect(function(player)
+            Player:Clear()
+            if player.Name == player.DisplayName then
+                Player:Add(player.Name,player.Character:GetPrimaryPartCFrame())
+            else
+                Player:Add(player.DisplayName .. " (" .. player.Name .. ")",player.Character:GetPrimaryPartCFrame())
+            end
+        end)
+        game.Players.PlayerRemoving:Connect(function(player)
+            Player:Clear()
+            if player.Name == player.DisplayName then
+                Player:Remove(player.Name)
+            else
+                Player:Remove(player.DisplayName .. " (" .. player.Name .. ")")
+            end
+        end)
+    
+end
+
+function Granny2()
+    local GUI = MicroLibrary:Create({
+        Name = "MicroHub - Granny"; -- Title
+        Toggle = Keybind; -- Hotkey To Toggle
+        KeySystem = false;
+        KeySettings = {
+            CorrectKey = key;
+            GetkeyLink = "https://link";
+        };
+        Size = Size;
+        ColourScheme = Scheme;
+    })
+
+    local Give = GUI:Tab({
+        Name = "Give Item";
+        Icon = "rbxassetid://12222879857";
+    })
+
+    Give:Dropdown({
+        Name = [[Give Item]]; -- Title
+        Description = "Select an Item to give"; -- Description
+        Items = {
+            {"Pepper spray",function()
+                local Items = workspace:FindFirstChild("General Items")
+                Items:FindFirstChild("Pepper spray"):FindFirstChild("InteractRemote"):FireServer()    
+            end};
+            {"Crossbow",function()
+                local Items = workspace:FindFirstChild("General Items")
+                Items:FindFirstChild("Crossbow"):FindFirstChild("InteractRemote"):FireServer()
+            end};
+            {"Physics Gun",function()
+                loadstring(game:HttpGet("https://pastebin.com/raw/CmQVd6RB"))()
+            end};
+        }; -- Items
+        Callback = function(Selected) 
+            -- Code Here --
+            Selected()
+        end;
+    })
+
+    local Home = GUI:Tab({
+        Name = "Home";
+        Icon = "rbxassetid://12222879857";
+    })
+
+local Translater = Home:Button({
+	Name = "Translater",
+	Callback = function()
+		loadstring(game:HttpGet("https://pastebin.com/raw/54hj5R7L"))()
+	end,
+})
+
+local Tp = Home:Button({
+    Name = "Tp Tool";
+    Callback = function()
+        local Tool = Instance.new("Tool")
+        Tool.Name = "Teleport"
+        Tool.Activated:Connect(function()
+            local pos = game.Players.LocalPlayer:GetMouse().hit
+            pos = CFrame.new(pos.X,pos.Y + 2.5,pos.Z)
+            game.Players.LocalPlayer.Character:SetPrimaryPartCFrame(pos)
+        end)
+        Tool.Parent = game.Players.LocalPlayer.Backpack
+    end
+})
+
+local pos = nil
+
+local Positions = Home:Dropdown({
+	Name = [[Positions]]; -- Title
+   	Description = nil; -- Description
+	Items = {}; -- Items
+	Callback = function(Selected) 
+		game.Players.LocalPlayer.Character:SetPrimaryPartCFrame(Selected)
+    end;
+})
+
+local Clear = Home:Button({
+    Name = "Clear Positions";
+    Callback = function()
+        Positions:Clear()
+    end
+})
+
+local CreatePosition = Home:TextBox({
+	Name = "Positon Name"; -- Title
+    Description = "Remove/Add the position with the name"; -- Description	
+	PlaceHolderText = "Remove or add a position with a name"; -- Place Holder Text
+	RemoveTextOnFocusLost = false; -- Removes The Text When Clicked
+	Callback = function(txt)
+        if txt == "" then
+            return
+        end
+
+        if Positions:Find(txt) then
+            Positions:Remove(txt)
+        else
+            Positions:Add(txt,game.Players.LocalPlayer.Character:GetPrimaryPartCFrame())
+        end
+	end
+})
+
+local BypassChat = Home:TextBox({
+	Name = "Bypass Chat Filter",
+	PlaceholderText = "Something",
+	RemoveTextOnFocusLost = false,
+	Callback = function(Text)
+		local chat = Text
+   local tabl = {}
+   for i = 1, #chat do
+       local chara = chat:sub(i,i)
+       if string.lower(chara) == "w" then
+           chara = "ɯ"
+       elseif string.lower(chara) == "n" then
+           chara = "ヘ"
+       elseif string.lower(chara) == "i" then
+           chara = "エ"
+       elseif string.lower(chara) == "c" then
+           chara = "く"
+       elseif string.lower(chara) == "t" then
+           chara = "て"
+       elseif string.lower(chara) == "o" then
+           chara = "○"
+       elseif string.lower(chara) == "u" then
+           chara = "ぴ"
+       elseif string.lower(chara) == "s" then
+           chara = "う" --TODO: Find better S character
+       elseif string.lower(chara) == " " then
+           chara = "  "
+       elseif string.lower(chara) == "h" then
+           chara = "カ"
+       end
+       table.insert(tabl, chara)
+   end
+   chat = ""
+   for i,v in pairs(tabl) do
+       chat = chat..v
+   end
+   game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(chat, "All")
+	end,
+})
+
+local MorseChat = Home:TextBox({
+	Name = "Talk In Morse Code",
+	PlaceholderText = "Something",
+	RemoveTextOnFocusLost = false,
+	Callback = function(Text)
+		local chat = Text
+   local tabl = {}
+   for i = 1, #chat do
+       local chara = chat:sub(i,i)
+       if string.lower(chara) == " " then
+           chara = "/"
+	   elseif string.lower(chara) == "a" then
+		chara = " .- "
+	elseif string.lower(chara) == "b" then
+		chara = " -... "
+	elseif string.lower(chara) == "c" then
+		chara = " -.-. "
+	elseif string.lower(chara) == "d" then
+		chara = " -.. "
+	elseif string.lower(chara) == "e" then
+		chara = " . "
+	elseif string.lower(chara) == "f" then
+		chara = " ..-. "
+	elseif string.lower(chara) == "g" then
+		chara = " --. "
+	elseif string.lower(chara) == "h" then
+		chara = " .... "
+	elseif string.lower(chara) == "i" then
+		chara = " .. "
+	elseif string.lower(chara) == "j" then
+		chara = " .--- "
+	elseif string.lower(chara) == "k" then
+		chara = " -.- "
+	elseif string.lower(chara) == "l" then
+		chara = " .-.. "
+	elseif string.lower(chara) == "m" then
+		chara = " -- "
+	elseif string.lower(chara) == "n" then
+		chara = " -. "
+	elseif string.lower(chara) == "o" then
+		chara = " --- "
+	elseif string.lower(chara) == "p" then
+		chara = " .--. "
+	elseif string.lower(chara) == "q" then
+		chara = " --.- "
+	elseif string.lower(chara) == "r" then
+		chara = " .-. "
+	elseif string.lower(chara) == "s" then
+		chara = " ... "
+	elseif string.lower(chara) == "t" then
+		chara = " - "
+	elseif string.lower(chara) == "u" then
+		chara = " ..- "
+	elseif string.lower(chara) == "v" then
+		chara = " ...- "
+	elseif string.lower(chara) == "w" then
+		chara = " .-- "
+	elseif string.lower(chara) == "x" then
+		chara = " -..- "
+	elseif string.lower(chara) == "y" then
+		chara = " -.-- "
+	elseif string.lower(chara) == "z" then
+		chara = " --.. "
+	elseif string.lower(chara) == "0" then
+		chara = " ----- "
+	elseif string.lower(chara) == "1" then
+		chara = " .---- "
+	elseif string.lower(chara) == "2" then
+		chara = " ..--- "
+	elseif string.lower(chara) == "3" then
+		chara = " ...-- "
+	elseif string.lower(chara) == "4" then
+		chara = " ....- "
+	elseif string.lower(chara) == "5" then
+		chara = " ..... "
+	elseif string.lower(chara) == "6" then
+		chara = " -.... "
+	elseif string.lower(chara) == "7" then
+		chara = " --... "
+	elseif string.lower(chara) == "8" then
+		chara = " ---.. "
+	elseif string.lower(chara) == "9" then
+		chara = " ----. "
+	elseif string.lower(chara) == "." then
+		chara = " .-.-.- "
+	elseif string.lower(chara) == "," then
+		chara = " --..-- "
+	elseif string.lower(chara) == "?" then
+		chara = " ..--.. "
+	elseif string.lower(chara) == "!" then
+		chara = " -.-.-- "
+	elseif string.lower(chara) == "'" then
+		chara = " .----. "
+	elseif string.lower(chara) == '"' then
+		chara = " .-..-. "
+	elseif string.lower(chara) == "(" then
+		chara = " -.--. "
+	elseif string.lower(chara) == ")" then
+		chara = " -.--.- "
+	elseif string.lower(chara) == "&" then
+		chara = " .-... "
+	elseif string.lower(chara) == ":" then
+		chara = " ---... "
+	elseif string.lower(chara) == ";" then
+		chara = " -.-.-. "
+	elseif string.lower(chara) == "/" then
+		chara = " -..-. "
+	elseif string.lower(chara) == "_" then
+		chara = " ..--.- "
+	elseif string.lower(chara) == "=" then
+		chara = " -...- "
+	elseif string.lower(chara) == "+" then
+		chara = " .-.-. "
+	elseif string.lower(chara) == "- " then
+		chara = " -....- "
+	elseif string.lower(chara) == "$" then
+		chara = " ...-..- "
+	elseif string.lower(chara) == "@" then
+		chara = " .--.-. "
+	   end
+       table.insert(tabl, chara)
+   end
+   chat = ""
+   for i,v in pairs(tabl) do
+       chat = chat..v
+   end
+   game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(chat, "All")
+
+	end,
+})
+
+local Player = GUI:Tab({
+    Name = "Player";
+    Icon = "rbxassetid://12222879857";
+})
+
+local Walkspeed = Player:TextBox({
+	Name = "Walkspeed",
+	PlaceholderText = "Walkspeed",
+	RemoveTextOnFocusLost = false,
+	Callback = function(Text)
+		game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = Text
+	end,
+})
+
+local Jumppower = Player:TextBox({
+	Name = "JumpPower",
+	PlaceholderText = "Jumppower",
+	RemoveTextOnFocusLost = false,
+	Callback = function(Text)
+		game.Players.LocalPlayer.Character.Humanoid.JumpPower = Text
+	end,
+})
+
+local flyforce = 400
+
+local FlySpeed = Player:TextBox({
+	Name = "Fly Speed",
+	PlaceholderText = "Speed",
+	RemoveTextOnFocusLost = false,
+	Callback = function(Text)
+		if not tonumber(Text) then return end
+		flyforce = Text
+	end,
+})
+
+local fly = nil
+local vectorForce
+local alignOrientation
+
+local Flight = Player:Toggle({
+	Name = "Flight (E = UP, Q = Down)",
+	Callback = function(state)
+        local character = game.Players.LocalPlayer.Character
+        local root = character.HumanoidRootPart
+        local gravityVector = Vector3.new(0,workspace.Gravity,0)
+        local runService = game:GetService("RunService")
+        local yAxis = 0
+
+        local function FlyAction()
+            if fly == true then return end
+            if fly == nil then
+                fly = true
+
+                if character.Humanoid.FloorMaterial ~= Enum.Material.Air then
+                    character.Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+                    task.wait(0.01)
+                end
+
+                vectorForce = Instance.new("VectorForce",root)
+                vectorForce.Attachment0 = root.RootAttachment
+                vectorForce.Force = Vector3.new(0,0,0)
+                vectorForce.RelativeTo = Enum.ActuatorRelativeTo.World
+
+                alignOrientation = Instance.new("AlignOrientation",root)
+                alignOrientation.Attachment0 = root.RootAttachment
+                alignOrientation.MaxAngularVelocity = math.huge
+                alignOrientation.MaxTorque = math.huge
+                alignOrientation.Mode = Enum.OrientationAlignmentMode.OneAttachment
+                alignOrientation.Responsiveness = 30
+
+                character.Humanoid:ChangeState(Enum.HumanoidStateType.Physics)
+
+                fly = runService.Heartbeat:Connect(function(delta)
+                    vectorForce.Force = gravityVector * root.AssemblyMass
+
+                    local moveVector = Vector3.new(character.Humanoid.MoveDirection.X,yAxis,character.Humanoid.MoveDirection.Z)
+                    if moveVector.Magnitude > 0 then
+                        moveVector = moveVector.Unit
+                        vectorForce.Force += moveVector * flyforce * root.AssemblyMass
+
+                        if math.abs(moveVector.Y) == 1 then
+                            alignOrientation.CFrame = CFrame.lookAt(Vector3.new(0,0,0),moveVector,-root.CFrame.LookVector) * CFrame.fromOrientation(-math.pi/2,0,0)
+                        else
+                            alignOrientation.CFrame = CFrame.lookAt(Vector3.new(0,0,0),moveVector) * CFrame.fromOrientation(-math.pi/2,0,0)
+                        end
+                    end
+
+                    if root.AssemblyLinearVelocity.Magnitude > 0 then
+                        local dragVector = -root.AssemblyLinearVelocity.Unit * root.AssemblyLinearVelocity.Magnitude ^ 1.2
+                        vectorForce.Force += dragVector * 4 * root.AssemblyMass
+                    end
+                end)
+            else
+                vectorForce:Destroy()
+                alignOrientation:Destroy()
+                character.Humanoid:ChangeState(Enum.HumanoidStateType.Freefall)
+
+                fly:Disconnect()
+                fly = nil
+            end
+        end
+
+        local Up = false
+        local Down = false
+
+        local function UpAction(inputObject:InputObject,gpe)
+            if gpe then return end
+
+            if inputObject.KeyCode ~= Enum.KeyCode.E then return end
+
+            local inputState = inputObject.UserInputState
+            if inputState == Enum.UserInputState.Begin then yAxis = 1 else yAxis = 0 end
+        end
+
+        local function DownAction(inputObject:InputObject,gpe)
+            if gpe then return end
+
+            if inputObject.KeyCode ~= Enum.KeyCode.Q then return end
+
+            local inputState = inputObject.UserInputState
+            if inputState == Enum.UserInputState.Begin then yAxis = -1 else yAxis = 0 end
+        end
+
+        game:GetService("UserInputService").InputBegan:Connect(UpAction)
+        game:GetService("UserInputService").InputBegan:Connect(DownAction)
+        game:GetService("UserInputService").InputEnded:Connect(function(input,gpe)
+            if gpe then return end
+
+            if input.KeyCode == Enum.KeyCode.Q or input.KeyCode == Enum.KeyCode.E then
+                yAxis = 0
+            end
+        end)
+
+        FlyAction()
+	end,
+ })
+
+local noclip = false
+
+local nocliptoggle = Player:Toggle({
+	Name = "Noclip",
+	Callback = function(state)
+		noclip = state
+	end,
+ })
+
+ game:GetService("RunService").Stepped:Connect(function()
+	if noclip then
+		for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+		pcall(function()
+			if v:IsA("BasePart") then
+				v.CanCollide = false
+			end
+			end)
+		end
+	else
+		for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+			pcall(function()
+				if v:IsA("BasePart") then
+					if v.Name ~= "Torso" then return end
+                    v.CanCollide = true
+				end
+				end)
+			end
+	end
+end)
+
+local infjump = false
+
+local InfiniteJump = Player:Toggle({
+	Name = "Infinite Jump",
+	Callback = function(state)
+		infjump = state
+	end,
+ })
+
+ Player:Keybind({
+	Name = [[Click TP]];
+	Description = "Teleports you to your cursor when activated";
+	StartBind = Enum.KeyCode.V;
+	Callback = function() 
+        local pos = game.Players.LocalPlayer:GetMouse().hit
+        pos = CFrame.new(pos.X,pos.Y + 2.5,pos.Z)
+
+        game.Players.LocalPlayer.Character:SetPrimaryPartCFrame(pos)
+    end
+})
+
+game:GetService("UserInputService").JumpRequest:Connect(function()
+	if infjump == true then
+		game.Players.LocalPlayer.Character.Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+	end
+end)
+local Teleports = GUI:Tab({
+	Name = "Teleports";
+	Icon = "rbxassetid://12222879857";
+})
+
+local Player = Teleports:Dropdown({
+    Name = [[Teleport To Player]]; -- Title
+    Description = nil; -- Description
+    Items = {}; -- Items
+    Callback = function(Selected) 
+        game.Players.LocalPlayer.Character:SetPrimaryPartCFrame(Selected)
+    end;
+})
+Player:Clear()
+        for i,v in pairs(game.Players:GetPlayers()) do
+            if v.Name == v.DisplayName then
+                Player:Add(v.Name,v.Character:GetPrimaryPartCFrame())
+            else
+                Player:Add(v.DisplayName .. " (" .. v.Name .. ")",v.Character:GetPrimaryPartCFrame())
+            end
+        end
+        game.Players.PlayerAdded:Connect(function(player)
+            Player:Clear()
+            if player.Name == player.DisplayName then
+                Player:Add(player.Name,player.Character:GetPrimaryPartCFrame())
+            else
+                Player:Add(player.DisplayName .. " (" .. player.Name .. ")",player.Character:GetPrimaryPartCFrame())
+            end
+        end)
+        game.Players.PlayerRemoving:Connect(function(player)
+            Player:Clear()
+            if player.Name == player.DisplayName then
+                Player:Remove(player.Name)
+            else
+                Player:Remove(player.DisplayName .. " (" .. player.Name .. ")")
+            end
+        end)
+    
+end
+
+function Murder_Party()
+    local GUI = MicroLibrary:Create({
+        Name = "MicroHub - Murder Party"; -- Title
+        Toggle = Keybind; -- Hotkey To Toggle
+        KeySystem = false;
+        KeySettings = {
+            CorrectKey = key;
+            GetkeyLink = "https://link";
+        };
+        Size = Size;
+        ColourScheme = Scheme;
+    })
+
+    local function Events()
+        local tab = {}
+
+        function tab.Kill(Player)
+            if not game.Players:FindFirstChild(Player) then return end
+            local args = {
+                [1] = Player.UserId
+            }
+
+            game:GetService("ReplicatedStorage").Events.Weapons.KnifeSwing:FireServer(unpack(args))
+        end
+
+        function tab.KillAll()
+            for i,v in pairs(game.Players:GetPlayers()) do
+                if not v:IsA("Player") then continue end
+                if v.UserId == game.Players.LocalPlayer.UserId then continue end
+                tab.Kill(v.Name)
+            end
+        end
+
+        function tab.Win(team)
+            
+        end
+
+        function tab.Player()
+            return game.Players.LocalPlayer
+        end
+        
+        function tab.Character()
+            return tab.Player().Character or tab.Player().CharacterAdded:Wait()
+        end
+
+        return tab
+    end
+
+    local MainTab = GUI:Tab({
+        Name = "Main"; -- Title
+        Icon = "rbxassetid://12222879857"; -- Icon
+    })
+
+    local PlayerTab = GUI:Tab({
+        Name = "Player"; -- Title
+        Icon = "rbxassetid://12222879857"; -- Icon
+    })
+
+    local Walkspeed = Events().Character().Humanoid.Walkspeed
+    local JumpPower = Events().Character().Humanoid.JumpPower
+    PlayerTab:Slider({
+        Name = "Walkspeed"; -- Title
+        Description = "Changes the Walkspeed"; -- Description
+        Minimum = 0; -- Minimum Value
+        Maximum = 1000; -- Maximum Value
+        Default = 16; -- Default Value
+        Callback = function(Value) 
+            -- Code Here Will Execute When The Draggable Frame Is Being Held --
+            Walkspeed = Value
+        end;
+    })
+
+    PlayerTab:Slider({
+        Name = "JumpPower"; -- Title
+        Description = "Changes the JumpPower"; -- Description
+        Minimum = 0; -- Minimum Value
+        Maximum = 1000; -- Maximum Value
+        Default = 16; -- Default Value
+        Callback = function(Value) 
+            -- Code Here Will Execute When The Draggable Frame Is Being Held --
+            JumpPower = Value
+        end;
+    })
+
+    game:GetService("RunService").RenderStepped:Connect(function()
+        local Humanoid = Events().Character().Humanoid
+        Humanoid.Walkspeed = Walkspeed
+        Humanoid.JumpPower = JumpPower
+    end)
+
+    local FunTab = GUI:Tab({
+        Name = "Fun"; -- Title
+        Icon = "rbxassetid://12222879857"; -- Icon
+    })
+
+
+end
+
+function Pls_Donate()
+    local GUI = MicroLibrary:Create({
+        Name = "MicroHub - Pls Donate"; -- Title
+        Toggle = Keybind; -- Hotkey To Toggle
+        KeySystem = false;
+        KeySettings = {
+            CorrectKey = key;
+            GetkeyLink = "https://link";
+        };
+        Size = Size;
+        ColourScheme = Scheme;
+    })
+
+    local Home = GUI:Tab({
+        Name = "Home";
+        Icon = "rbxassetid://12222879857";
+    })
+
+local Translater = Home:Button({
+	Name = "Translater",
+	Callback = function()
+		loadstring(game:HttpGet("https://pastebin.com/raw/54hj5R7L"))()
+	end,
+})
+
+local Positions = Home:Dropdown({
+	Name = [[Positions]]; -- Title
+   	Description = nil; -- Description
+	Items = {}; -- Items
+	Callback = function(Selected) 
+		game.Players.LocalPlayer.Character:SetPrimaryPartCFrame(Selected)
+    end;
+})
+
+local Clear = Home:Button({
+    Name = "Clear Positions";
+    Callback = function()
+        Positions:Clear()
+    end
+})
+
+local CreatePosition = Home:TextBox({
+	Name = "Positon Name"; -- Title
+    Description = "Remove/Add the position with the name"; -- Description	
+	PlaceHolderText = "Remove or add a position with a name"; -- Place Holder Text
+	RemoveTextOnFocusLost = false; -- Removes The Text When Clicked
+	Callback = function(txt)
+        if txt == "" then
+            return
+        end
+
+        if Positions:Find(txt) then
+            Positions:Remove(txt)
+        else
+            Positions:Add(txt,game.Players.LocalPlayer.Character:GetPrimaryPartCFrame())
+        end
+	end
+})
+
+local BypassChat = Home:TextBox({
+	Name = "Bypass Chat Filter",
+	PlaceholderText = "Something",
+	RemoveTextOnFocusLost = false,
+	Callback = function(Text)
+		local chat = Text
+   local tabl = {}
+   for i = 1, #chat do
+       local chara = chat:sub(i,i)
+       if string.lower(chara) == "w" then
+           chara = "ɯ"
+       elseif string.lower(chara) == "n" then
+           chara = "ヘ"
+       elseif string.lower(chara) == "i" then
+           chara = "エ"
+       elseif string.lower(chara) == "c" then
+           chara = "く"
+       elseif string.lower(chara) == "t" then
+           chara = "て"
+       elseif string.lower(chara) == "o" then
+           chara = "○"
+       elseif string.lower(chara) == "u" then
+           chara = "ぴ"
+       elseif string.lower(chara) == "s" then
+           chara = "う" --TODO: Find better S character
+       elseif string.lower(chara) == " " then
+           chara = "  "
+       elseif string.lower(chara) == "h" then
+           chara = "カ"
+       end
+       table.insert(tabl, chara)
+   end
+   chat = ""
+   for i,v in pairs(tabl) do
+       chat = chat..v
+   end
+   game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(chat, "All")
+	end,
+})
+
+local MorseChat = Home:TextBox({
+	Name = "Talk In Morse Code",
+	PlaceholderText = "Something",
+	RemoveTextOnFocusLost = false,
+	Callback = function(Text)
+		local chat = Text
+   local tabl = {}
+   for i = 1, #chat do
+       local chara = chat:sub(i,i)
+       if string.lower(chara) == " " then
+           chara = "/"
+	   elseif string.lower(chara) == "a" then
+		chara = " .- "
+	elseif string.lower(chara) == "b" then
+		chara = " -... "
+	elseif string.lower(chara) == "c" then
+		chara = " -.-. "
+	elseif string.lower(chara) == "d" then
+		chara = " -.. "
+	elseif string.lower(chara) == "e" then
+		chara = " . "
+	elseif string.lower(chara) == "f" then
+		chara = " ..-. "
+	elseif string.lower(chara) == "g" then
+		chara = " --. "
+	elseif string.lower(chara) == "h" then
+		chara = " .... "
+	elseif string.lower(chara) == "i" then
+		chara = " .. "
+	elseif string.lower(chara) == "j" then
+		chara = " .--- "
+	elseif string.lower(chara) == "k" then
+		chara = " -.- "
+	elseif string.lower(chara) == "l" then
+		chara = " .-.. "
+	elseif string.lower(chara) == "m" then
+		chara = " -- "
+	elseif string.lower(chara) == "n" then
+		chara = " -. "
+	elseif string.lower(chara) == "o" then
+		chara = " --- "
+	elseif string.lower(chara) == "p" then
+		chara = " .--. "
+	elseif string.lower(chara) == "q" then
+		chara = " --.- "
+	elseif string.lower(chara) == "r" then
+		chara = " .-. "
+	elseif string.lower(chara) == "s" then
+		chara = " ... "
+	elseif string.lower(chara) == "t" then
+		chara = " - "
+	elseif string.lower(chara) == "u" then
+		chara = " ..- "
+	elseif string.lower(chara) == "v" then
+		chara = " ...- "
+	elseif string.lower(chara) == "w" then
+		chara = " .-- "
+	elseif string.lower(chara) == "x" then
+		chara = " -..- "
+	elseif string.lower(chara) == "y" then
+		chara = " -.-- "
+	elseif string.lower(chara) == "z" then
+		chara = " --.. "
+	elseif string.lower(chara) == "0" then
+		chara = " ----- "
+	elseif string.lower(chara) == "1" then
+		chara = " .---- "
+	elseif string.lower(chara) == "2" then
+		chara = " ..--- "
+	elseif string.lower(chara) == "3" then
+		chara = " ...-- "
+	elseif string.lower(chara) == "4" then
+		chara = " ....- "
+	elseif string.lower(chara) == "5" then
+		chara = " ..... "
+	elseif string.lower(chara) == "6" then
+		chara = " -.... "
+	elseif string.lower(chara) == "7" then
+		chara = " --... "
+	elseif string.lower(chara) == "8" then
+		chara = " ---.. "
+	elseif string.lower(chara) == "9" then
+		chara = " ----. "
+	elseif string.lower(chara) == "." then
+		chara = " .-.-.- "
+	elseif string.lower(chara) == "," then
+		chara = " --..-- "
+	elseif string.lower(chara) == "?" then
+		chara = " ..--.. "
+	elseif string.lower(chara) == "!" then
+		chara = " -.-.-- "
+	elseif string.lower(chara) == "'" then
+		chara = " .----. "
+	elseif string.lower(chara) == '"' then
+		chara = " .-..-. "
+	elseif string.lower(chara) == "(" then
+		chara = " -.--. "
+	elseif string.lower(chara) == ")" then
+		chara = " -.--.- "
+	elseif string.lower(chara) == "&" then
+		chara = " .-... "
+	elseif string.lower(chara) == ":" then
+		chara = " ---... "
+	elseif string.lower(chara) == ";" then
+		chara = " -.-.-. "
+	elseif string.lower(chara) == "/" then
+		chara = " -..-. "
+	elseif string.lower(chara) == "_" then
+		chara = " ..--.- "
+	elseif string.lower(chara) == "=" then
+		chara = " -...- "
+	elseif string.lower(chara) == "+" then
+		chara = " .-.-. "
+	elseif string.lower(chara) == "- " then
+		chara = " -....- "
+	elseif string.lower(chara) == "$" then
+		chara = " ...-..- "
+	elseif string.lower(chara) == "@" then
+		chara = " .--.-. "
+	   end
+       table.insert(tabl, chara)
+   end
+   chat = ""
+   for i,v in pairs(tabl) do
+       chat = chat..v
+   end
+   game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(chat, "All")
+
+	end,
+})
+
+local Player = GUI:Tab({
+    Name = "Player";
+    Icon = "rbxassetid://12222879857";
+})
+
+local Walkspeed = Player:TextBox({
+	Name = "Walkspeed",
+	PlaceholderText = "Walkspeed",
+	RemoveTextOnFocusLost = false,
+	Callback = function(Text)
+		game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = Text
+	end,
+})
+
+local Jumppower = Player:TextBox({
+	Name = "JumpPower",
+	PlaceholderText = "Jumppower",
+	RemoveTextOnFocusLost = false,
+	Callback = function(Text)
+		game.Players.LocalPlayer.Character.Humanoid.JumpPower = Text
+	end,
+})
+
+
+ Player:Keybind({
+	Name = [[Click TP]];
+	Description = "Teleports you to your cursor when activated";
+	StartBind = Enum.KeyCode.V;
+	Callback = function() 
+        local pos = game.Players.LocalPlayer:GetMouse().hit
+        pos = CFrame.new(pos.X,pos.Y + 2.5,pos.Z)
+
+        game.Players.LocalPlayer.Character:SetPrimaryPartCFrame(pos)
+    end
+})
+local Teleports = GUI:Tab({
+	Name = "Teleports";
+	Icon = "rbxassetid://12222879857";
+})
+
+local Player = Teleports:Dropdown({
+    Name = [[Teleport To Player]]; -- Title
+    Description = nil; -- Description
+    Items = {}; -- Items
+    Callback = function(Selected) 
+        game.Players.LocalPlayer.Character:SetPrimaryPartCFrame(Selected)
+    end;
+})
+    do
+        Player:Clear()
+        for i,v in pairs(game.Players:GetPlayers()) do
+            if v.Name == v.DisplayName then
+                Player:Add(v.Name,v.Character:GetPrimaryPartCFrame())
+            else
+                Player:Add(v.DisplayName .. " (" .. v.Name .. ")",v.Character:GetPrimaryPartCFrame())
+            end
+        end
+        game.Players.PlayerAdded:Connect(function(player)
+            Player:Clear()
+            if player.Name == player.DisplayName then
+                Player:Add(player.Name,player.Character:GetPrimaryPartCFrame())
+            else
+                Player:Add(player.DisplayName .. " (" .. player.Name .. ")",player.Character:GetPrimaryPartCFrame())
+            end
+        end)
+        game.Players.PlayerRemoving:Connect(function(player)
+            Player:Clear()
+            if player.Name == player.DisplayName then
+                Player:Remove(player.Name)
+            else
+                Player:Remove(player.DisplayName .. " (" .. player.Name .. ")")
+            end
+        end)
+    end
+    local Booths = Teleports:Dropdown({
+        Name = [[Teleport To Booth]]; -- Title
+        Description = nil; -- Description
+        Items = {}; -- Items
+        Callback = function(Selected) 
+            game.Players.LocalPlayer.Character:SetPrimaryPartCFrame(Selected)
+        end;
+    })
+    local Booth = GUI:Tab({
+        Name = "Getting Robux";
+        Icon = "rbxassetid://12222879857";
+    })
+
+    local Teleport = Booth:Button({
+        Name = "Teleport to booth";
+        Callback = function()
+            local pos = CFrame.new(0,0,0)
+            game.Players.LocalPlayer.Character:SetPrimaryPartCFrame(pos)
+        end
+    })
+
+    local Begs = {}
+
+    local BegsInfo = Booth:Info({
+        Message = "--<font color='#00a2ff'>Begs</font>-- \n"; -- Message
+    })
+
+    Booth:TextBox({
+        Name = "Insert a beg"; -- Title
+        Description = "Insert a beg"; -- Description	
+        PlaceHolderText = "Insert a beg here"; -- Place Holder Text
+        RemoveTextOnFocusLost = false; -- Removes The Text When Clicked
+        Callback = function(txt) 
+            -- Code Here --
+            local found = {false}
+            for i,v in pairs(Begs) do
+                if v:lower() == txt:lower() then
+                    found = {true,i}
+                end
+            end
+            if found[1] then
+                table.remove(Begs,found[2])
+            else
+                table.insert(Begs,txt)
+                BegsInfo:SetText("--<font color='#00a2ff'>Begs</font>-- \n" .. table.unpack(Begs,", \n"))
+            end
+        end
+    })
+end 
+
+function Other()
+    local GUI = MicroLibrary:Create({
+        Name = "MicroHub - Universal"; -- Title
+        Toggle = Keybind; -- Hotkey To Toggle
+        KeySystem = false;
+        KeySettings = {
+            CorrectKey = key;
+            GetkeyLink = "https://link";
+        };
+        Size = Size;
+        ColourScheme = Scheme;
+    })
+
+    local Home = GUI:Tab({
+        Name = "Home";
+        Icon = "rbxassetid://12222879857";
+    })
+
+local Translater = Home:Button({
+	Name = "Translater",
+	Callback = function()
+		loadstring(game:HttpGet("https://pastebin.com/raw/54hj5R7L"))()
+	end,
+})
+
+local PhysicsGun = Home:Button({
+	Name = "Physics Gun",
+	Callback = function()
+		loadstring(game:HttpGet("https://pastebin.com/raw/CmQVd6RB"))()
+	end,
+})
+
+local Tp = Home:Button({
+    Name = "Tp Tool";
+    Callback = function()
+        local Tool = Instance.new("Tool")
+        Tool.Name = "Teleport"
+        Tool.Activated:Connect(function()
+            local pos = game.Players.LocalPlayer:GetMouse().hit
+            pos = CFrame.new(pos.X,pos.Y + 2.5,pos.Z)
+            game.Players.LocalPlayer.Character:SetPrimaryPartCFrame(pos)
+        end)
+        Tool.Parent = game.Players.LocalPlayer.Backpack
+    end
+})
+
+local pos = nil
+
+local Positions = Home:Dropdown({
+	Name = [[Positions]]; -- Title
+   	Description = nil; -- Description
+	Items = {}; -- Items
+	Callback = function(Selected) 
+		game.Players.LocalPlayer.Character:SetPrimaryPartCFrame(Selected)
+    end;
+})
+
+local Clear = Home:Button({
+    Name = "Clear Positions";
+    Callback = function()
+        Positions:Clear()
+    end
+})
+
+local CreatePosition = Home:TextBox({
+	Name = "Positon Name"; -- Title
+    Description = "Remove/Add the position with the name"; -- Description	
+	PlaceHolderText = "Remove or add a position with a name"; -- Place Holder Text
+	RemoveTextOnFocusLost = false; -- Removes The Text When Clicked
+	Callback = function(txt)
+        if txt == "" then
+            return
+        end
+
+        if Positions:Find(txt) then
+            Positions:Remove(txt)
+        else
+            Positions:Add(txt,game.Players.LocalPlayer.Character:GetPrimaryPartCFrame())
+        end
+	end
+})
+
+local BypassChat = Home:TextBox({
+	Name = "Bypass Chat Filter",
+	PlaceholderText = "Something",
+	RemoveTextOnFocusLost = false,
+	Callback = function(Text)
+		local chat = Text
+   local tabl = {}
+   for i = 1, #chat do
+       local chara = chat:sub(i,i)
+       if string.lower(chara) == "w" then
+           chara = "ɯ"
+       elseif string.lower(chara) == "n" then
+           chara = "ヘ"
+       elseif string.lower(chara) == "i" then
+           chara = "エ"
+       elseif string.lower(chara) == "c" then
+           chara = "く"
+       elseif string.lower(chara) == "t" then
+           chara = "て"
+       elseif string.lower(chara) == "o" then
+           chara = "○"
+       elseif string.lower(chara) == "u" then
+           chara = "ぴ"
+       elseif string.lower(chara) == "s" then
+           chara = "う" --TODO: Find better S character
+       elseif string.lower(chara) == " " then
+           chara = "  "
+       elseif string.lower(chara) == "h" then
+           chara = "カ"
+       end
+       table.insert(tabl, chara)
+   end
+   chat = ""
+   for i,v in pairs(tabl) do
+       chat = chat..v
+   end
+   game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(chat, "All")
+	end,
+})
+
+local MorseChat = Home:TextBox({
+	Name = "Talk In Morse Code",
+	PlaceholderText = "Something",
+	RemoveTextOnFocusLost = false,
+	Callback = function(Text)
+		local chat = Text
+   local tabl = {}
+   for i = 1, #chat do
+       local chara = chat:sub(i,i)
+       if string.lower(chara) == " " then
+           chara = "/"
+	   elseif string.lower(chara) == "a" then
+		chara = " .- "
+	elseif string.lower(chara) == "b" then
+		chara = " -... "
+	elseif string.lower(chara) == "c" then
+		chara = " -.-. "
+	elseif string.lower(chara) == "d" then
+		chara = " -.. "
+	elseif string.lower(chara) == "e" then
+		chara = " . "
+	elseif string.lower(chara) == "f" then
+		chara = " ..-. "
+	elseif string.lower(chara) == "g" then
+		chara = " --. "
+	elseif string.lower(chara) == "h" then
+		chara = " .... "
+	elseif string.lower(chara) == "i" then
+		chara = " .. "
+	elseif string.lower(chara) == "j" then
+		chara = " .--- "
+	elseif string.lower(chara) == "k" then
+		chara = " -.- "
+	elseif string.lower(chara) == "l" then
+		chara = " .-.. "
+	elseif string.lower(chara) == "m" then
+		chara = " -- "
+	elseif string.lower(chara) == "n" then
+		chara = " -. "
+	elseif string.lower(chara) == "o" then
+		chara = " --- "
+	elseif string.lower(chara) == "p" then
+		chara = " .--. "
+	elseif string.lower(chara) == "q" then
+		chara = " --.- "
+	elseif string.lower(chara) == "r" then
+		chara = " .-. "
+	elseif string.lower(chara) == "s" then
+		chara = " ... "
+	elseif string.lower(chara) == "t" then
+		chara = " - "
+	elseif string.lower(chara) == "u" then
+		chara = " ..- "
+	elseif string.lower(chara) == "v" then
+		chara = " ...- "
+	elseif string.lower(chara) == "w" then
+		chara = " .-- "
+	elseif string.lower(chara) == "x" then
+		chara = " -..- "
+	elseif string.lower(chara) == "y" then
+		chara = " -.-- "
+	elseif string.lower(chara) == "z" then
+		chara = " --.. "
+	elseif string.lower(chara) == "0" then
+		chara = " ----- "
+	elseif string.lower(chara) == "1" then
+		chara = " .---- "
+	elseif string.lower(chara) == "2" then
+		chara = " ..--- "
+	elseif string.lower(chara) == "3" then
+		chara = " ...-- "
+	elseif string.lower(chara) == "4" then
+		chara = " ....- "
+	elseif string.lower(chara) == "5" then
+		chara = " ..... "
+	elseif string.lower(chara) == "6" then
+		chara = " -.... "
+	elseif string.lower(chara) == "7" then
+		chara = " --... "
+	elseif string.lower(chara) == "8" then
+		chara = " ---.. "
+	elseif string.lower(chara) == "9" then
+		chara = " ----. "
+	elseif string.lower(chara) == "." then
+		chara = " .-.-.- "
+	elseif string.lower(chara) == "," then
+		chara = " --..-- "
+	elseif string.lower(chara) == "?" then
+		chara = " ..--.. "
+	elseif string.lower(chara) == "!" then
+		chara = " -.-.-- "
+	elseif string.lower(chara) == "'" then
+		chara = " .----. "
+	elseif string.lower(chara) == '"' then
+		chara = " .-..-. "
+	elseif string.lower(chara) == "(" then
+		chara = " -.--. "
+	elseif string.lower(chara) == ")" then
+		chara = " -.--.- "
+	elseif string.lower(chara) == "&" then
+		chara = " .-... "
+	elseif string.lower(chara) == ":" then
+		chara = " ---... "
+	elseif string.lower(chara) == ";" then
+		chara = " -.-.-. "
+	elseif string.lower(chara) == "/" then
+		chara = " -..-. "
+	elseif string.lower(chara) == "_" then
+		chara = " ..--.- "
+	elseif string.lower(chara) == "=" then
+		chara = " -...- "
+	elseif string.lower(chara) == "+" then
+		chara = " .-.-. "
+	elseif string.lower(chara) == "- " then
+		chara = " -....- "
+	elseif string.lower(chara) == "$" then
+		chara = " ...-..- "
+	elseif string.lower(chara) == "@" then
+		chara = " .--.-. "
+	   end
+       table.insert(tabl, chara)
+   end
+   chat = ""
+   for i,v in pairs(tabl) do
+       chat = chat..v
+   end
+   game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(chat, "All")
+
+	end,
+})
+
+local Player = GUI:Tab({
+    Name = "Player";
+    Icon = "rbxassetid://12222879857";
+})
+
+local Walkspeed = Player:TextBox({
+	Name = "Walkspeed",
+	PlaceholderText = "Walkspeed",
+	RemoveTextOnFocusLost = false,
+	Callback = function(Text)
+		game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = Text
+	end,
+})
+
+local Jumppower = Player:TextBox({
+	Name = "JumpPower",
+	PlaceholderText = "Jumppower",
+	RemoveTextOnFocusLost = false,
+	Callback = function(Text)
+		game.Players.LocalPlayer.Character.Humanoid.JumpPower = Text
+	end,
+})
+
+local flyforce = 400
+
+local FlySpeed = Player:TextBox({
+	Name = "Fly Speed",
+	PlaceholderText = "Speed",
+	RemoveTextOnFocusLost = false,
+	Callback = function(Text)
+		if not tonumber(Text) then return end
+		flyforce = Text
+	end,
+})
+
+local fly = nil
+local vectorForce
+local alignOrientation
+
+local Flight = Player:Toggle({
+	Name = "Flight (E = UP, Q = Down)",
+	Callback = function(state)
+        local character = game.Players.LocalPlayer.Character
+        local root = character.HumanoidRootPart
+        local gravityVector = Vector3.new(0,workspace.Gravity,0)
+        local runService = game:GetService("RunService")
+        local yAxis = 0
+
+        local function FlyAction()
+            if fly == true then return end
+            if fly == nil then
+                fly = true
+
+                if character.Humanoid.FloorMaterial ~= Enum.Material.Air then
+                    character.Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+                    task.wait(0.01)
+                end
+
+                vectorForce = Instance.new("VectorForce",root)
+                vectorForce.Attachment0 = root.RootAttachment
+                vectorForce.Force = Vector3.new(0,0,0)
+                vectorForce.RelativeTo = Enum.ActuatorRelativeTo.World
+
+                alignOrientation = Instance.new("AlignOrientation",root)
+                alignOrientation.Attachment0 = root.RootAttachment
+                alignOrientation.MaxAngularVelocity = math.huge
+                alignOrientation.MaxTorque = math.huge
+                alignOrientation.Mode = Enum.OrientationAlignmentMode.OneAttachment
+                alignOrientation.Responsiveness = 30
+
+                character.Humanoid:ChangeState(Enum.HumanoidStateType.Physics)
+
+                fly = runService.Heartbeat:Connect(function(delta)
+                    vectorForce.Force = gravityVector * root.AssemblyMass
+
+                    local moveVector = Vector3.new(character.Humanoid.MoveDirection.X,yAxis,character.Humanoid.MoveDirection.Z)
+                    if moveVector.Magnitude > 0 then
+                        moveVector = moveVector.Unit
+                        vectorForce.Force += moveVector * flyforce * root.AssemblyMass
+
+                        if math.abs(moveVector.Y) == 1 then
+                            alignOrientation.CFrame = CFrame.lookAt(Vector3.new(0,0,0),moveVector,-root.CFrame.LookVector) * CFrame.fromOrientation(-math.pi/2,0,0)
+                        else
+                            alignOrientation.CFrame = CFrame.lookAt(Vector3.new(0,0,0),moveVector) * CFrame.fromOrientation(-math.pi/2,0,0)
+                        end
+                    end
+
+                    if root.AssemblyLinearVelocity.Magnitude > 0 then
+                        local dragVector = -root.AssemblyLinearVelocity.Unit * root.AssemblyLinearVelocity.Magnitude ^ 1.2
+                        vectorForce.Force += dragVector * 4 * root.AssemblyMass
+                    end
+                end)
+            else
+                vectorForce:Destroy()
+                alignOrientation:Destroy()
+                character.Humanoid:ChangeState(Enum.HumanoidStateType.Freefall)
+
+                fly:Disconnect()
+                fly = nil
+            end
+        end
+
+        local Up = false
+        local Down = false
+
+        local function UpAction(inputObject:InputObject,gpe)
+            if gpe then return end
+
+            if inputObject.KeyCode ~= Enum.KeyCode.E then return end
+
+            local inputState = inputObject.UserInputState
+            if inputState == Enum.UserInputState.Begin then yAxis = 1 else yAxis = 0 end
+        end
+
+        local function DownAction(inputObject:InputObject,gpe)
+            if gpe then return end
+
+            if inputObject.KeyCode ~= Enum.KeyCode.Q then return end
+
+            local inputState = inputObject.UserInputState
+            if inputState == Enum.UserInputState.Begin then yAxis = -1 else yAxis = 0 end
+        end
+
+        game:GetService("UserInputService").InputBegan:Connect(UpAction)
+        game:GetService("UserInputService").InputBegan:Connect(DownAction)
+        game:GetService("UserInputService").InputEnded:Connect(function(input,gpe)
+            if gpe then return end
+
+            if input.KeyCode == Enum.KeyCode.Q or input.KeyCode == Enum.KeyCode.E then
+                yAxis = 0
+            end
+        end)
+
+        FlyAction()
+	end,
+ })
+
+local noclip = false
+
+local nocliptoggle = Player:Toggle({
+	Name = "Noclip",
+	Callback = function(state)
+		noclip = state
+	end,
+ })
+
+ game:GetService("RunService").Stepped:Connect(function()
+	if noclip then
+		for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+		pcall(function()
+			if v:IsA("BasePart") then
+				v.CanCollide = false
+			end
+			end)
+		end
+	else
+		for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+			pcall(function()
+				if v:IsA("BasePart") then
+					if v.Name ~= "Torso" then return end
+                    v.CanCollide = true
+				end
+				end)
+			end
+	end
+end)
+
+local infjump = false
+
+local InfiniteJump = Player:Toggle({
+	Name = "Infinite Jump",
+	Callback = function(state)
+		infjump = state
+	end,
+ })
+
+ Player:Keybind({
+	Name = [[Click TP]];
+	Description = "Teleports you to your cursor when activated";
+	StartBind = Enum.KeyCode.V;
+	Callback = function() 
+        local pos = game.Players.LocalPlayer:GetMouse().hit
+        pos = CFrame.new(pos.X,pos.Y + 2.5,pos.Z)
+
+        game.Players.LocalPlayer.Character:SetPrimaryPartCFrame(pos)
+    end
+})
+
+game:GetService("UserInputService").JumpRequest:Connect(function()
+	if infjump == true then
+		game.Players.LocalPlayer.Character.Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+	end
+end)
+local Teleports = GUI:Tab({
+	Name = "Teleports";
+	Icon = "rbxassetid://12222879857";
+})
+
+local Player = Teleports:Dropdown({
+    Name = [[Teleport To Player]]; -- Title
+    Description = nil; -- Description
+    Items = {}; -- Items
+    Callback = function(Selected) 
+        game.Players.LocalPlayer.Character:SetPrimaryPartCFrame(Selected)
+    end;
+})
+Player:Clear()
+        for i,v in pairs(game.Players:GetPlayers()) do
+            if v.Name == v.DisplayName then
+                Player:Add(v.Name,v.Character:GetPrimaryPartCFrame())
+            else
+                Player:Add(v.DisplayName .. " (" .. v.Name .. ")",v.Character:GetPrimaryPartCFrame())
+            end
+        end
+        game.Players.PlayerAdded:Connect(function(player)
+            Player:Clear()
+            if player.Name == player.DisplayName then
+                Player:Add(player.Name,player.Character:GetPrimaryPartCFrame())
+            else
+                Player:Add(player.DisplayName .. " (" .. player.Name .. ")",player.Character:GetPrimaryPartCFrame())
+            end
+        end)
+        game.Players.PlayerRemoving:Connect(function(player)
+            Player:Clear()
+            if player.Name == player.DisplayName then
+                Player:Remove(player.Name)
+            else
+                Player:Remove(player.DisplayName .. " (" .. player.Name .. ")")
+            end
+        end)
+end 
+
+function keysystem()
+    local GUI = MicroLibrary:Create({
+        Name = "MicroHub - KeySystem"; -- Title
+        Toggle = Keybind; -- Hotkey To Toggle
+        KeySystem = false;
+        KeySettings = {
+            CorrectKey = key;
+            GetkeyLink = "https://link";
+        };
+        Size = Size;
+        ColourScheme = Scheme;
+    })
+
+    local Keys = GUI:Tab{
+        Name = "Key system",
+        Icon = "rbxassetid://8569322835"
+    }
+
+    local Status = Keys:Label({
+    Message = "Status: Nil"; -- Message
+})
+
+    Keys:TextBox({
+        Name = "Key"; -- Title
+        Description = "Key"; -- Description
+        PlaceHolderText = "Insert your key here"; -- Place Holder Text
+        RemoveTextOnFocusLost = false; -- Removes The Text When Clicked
+        Callback = function(txt)
+            local Games = {
+                {{3851622790},BreakInLobby1};
+                {{4620170611},BreakInMatch1};
+                {{13864661000},BreakInLobby2};
+                {{13864667823},BreakInMatch2};
+                {{537413528},Babft};
+                {{4623386862,5661005779,5247067896},Piggy};
+                {{1962086868,3582763398},TowerOfHell};
+                {{2248408710},DestructionSimulator};
+                {{8888615802},RainbowFriends_Part1};
+                {{155615604},Build_To_Survive};
+                {{5611648039},Murder_Party};
+                {{game.PlaceId},Other}
+            }
+            local Correct = false
+            if typeof(key) == "table" then
+                for i,v in pairs(key) do
+                    if txt == v then
+                        Correct = true
+                    end
+                end
+            else
+                if txt == key then
+                    Correct = true
+                end
+            end
+            if Correct then
+                Status:SetText("Status: Correct")
+                print("Correct Key!")
+                wait(1)
+                GUI:Destroy()
+                for _,tab in pairs(Games) do
+                    for _,id in pairs(tab[1]) do
+                        if id == game.PlaceId then
+                            tab[2]()
+                            break
+                        end
+                    end
+                end
+            else
+                Status:SetText("Status: Incorrect")
+                print("Incorrect Key!")
+                wait(1)
+                Status:SetText("Status: Nil")
+            end
+        end
+    })  
+end
+
+keysystem()
+
+print("Loaded")
