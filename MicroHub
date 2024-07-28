@@ -659,11 +659,7 @@ function BreakInLobby2()
                     [2] = IsKid, -- Kid/Adult
                     [3] = ShowClothing -- Kid/Adult
                 }
-                if item ~= "Book" or item ~= "Phone" then
-                    game:GetService("ReplicatedStorage").RemoteEvents.MakeRole:FireServer(unpack(args))
-                else
-                    game:GetService("ReplicatedStorage").RemoteEvents.OutsideRole:FireServer(unpack(args))
-                end
+                game:GetService("ReplicatedStorage").RemoteEvents.MakeRole:FireServer(unpack(args))
             end
         }
 end
@@ -1368,6 +1364,11 @@ Quests:Dropdown({
 end
 
 function Piggy()
+    while true do
+        for i,v in pairs(workspace.ItemFolder) do
+            v.ClickDetector.MaxActivationDistance = math.huge
+        end
+    wait() end
     local GUI = MicroLibrary:Create({
         Name = "MicroHub - Piggy"; -- Title
         Toggle = Keybind; -- Hotkey To Toggle
@@ -4332,7 +4333,6 @@ function keysystem()
                 {{8888615802},RainbowFriends_Part1};
                 {{155615604},Build_To_Survive};
                 {{5611648039},Murder_Party};
-                {{game.PlaceId},Other}
             }
             local Correct = false
             if typeof(key) == "table" then
@@ -4351,13 +4351,18 @@ function keysystem()
                 print("Correct Key!")
                 wait(1)
                 GUI:Destroy()
+                local foundGame
                 for _,tab in pairs(Games) do
                     for _,id in pairs(tab[1]) do
                         if id == game.PlaceId then
                             tab[2]()
+                            foundGame = true
                             break
                         end
                     end
+                end
+                if not foundGame then
+                    Other()
                 end
             else
                 Status:SetText("Status: Incorrect")
